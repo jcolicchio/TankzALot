@@ -41,34 +41,70 @@
     
 }
 
+// create the tank sprite nodes based off an initial gamestate. Fuck it.
+- (void) initalizeToGameState:(TankzGameState *)GameState
+{
+    NSMutableArray * playerList = GameState.playerList;
+    for (TankzPlayer *player in playerList) {
+        NSLog(@"Draw!");
+        
+        SKSpriteNode* tank =
+        [self newTankwithId:player.playerID withColor:player.color withPosition:player.position];
+        
+        float angle = player.turretPosition * M_PI/180;
+        // now set the angle of the player's gun
+        [self setGunArc:angle ofTank:tank];
+        
+        [self addChild:(tank)];
+    }
+}
+
 // the big motherfucker of drawing functions
 // this guy will take a gamestate, unpack it, and update
 // the scene to reflect the new gamestate
 - (void) updateWithGameState:(TankzGameState *)GameState
 {
+    
     // this is going to have to be changed for proper movement
     // for now this will go through the player array and draw
     // tanks
+    
+    // right now it's creating more tanks with every gamestate update
+    // this is dumb.
+    
+    // it should just move already existing tanks.
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
+        NSLog(@"Draw!");
         
-        SKSpriteNode* tank =
-        [self newTankwithColor:player.color withPosition:player.position];
+        SKSpriteNode* tank = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"%d",player.playerID]];
         
+        
+        if( tank ){
+            
+        float angle = player.turretPosition * M_PI/180;
         // now set the angle of the player's gun
-        [self setGunArc:M_PI_4 ofTank:tank];
-        
+        [self setGunArc:angle ofTank:tank];
+            
+            
+            SKAction* move = [SKAction moveByX:3 y:0 duration:1.0];
+            
+            [tank runAction:move];
+         
+        }
     }
 }
 
 // tank building function
 // creates a color-colored tank
 // at position Pos
-- (SKSpriteNode *)newTankwithColor:(SKColor *)Color withPosition:(CGPoint)Pos
+- (SKSpriteNode *)newTankwithId:(int)playerId withColor:(SKColor *)Color withPosition:(CGPoint)Pos
 {
     SKSpriteNode *treads = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(50, 5)];
     
     SKSpriteNode *hull = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(60, 15)];
+    
+    hull.name = [NSString stringWithFormat:@"%d",playerId];
     
     hull.position = CGPointMake(Pos.x, Pos.y + hull.size.height/2 + treads.size.height/2);
     
@@ -77,6 +113,8 @@
     [hull addChild:treads];
     
     SKSpriteNode *turret = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(40, 10)];
+    
+    turret.name = @"turret";
     
     turret.position = CGPointMake(0, hull.size.height/2 + turret.size.height/2);
     
@@ -103,8 +141,9 @@
 // rotates the gun to the Rad position
 - (void) setGunArc:(float)rad ofTank:(SKSpriteNode*)tank
 {
-    SKSpriteNode *gun = (SKSpriteNode*) [tank childNodeWithName:@"gun"];
-    gun.zRotation = rad;
+    SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
+
+    [gun runAction:[SKAction rotateToAngle:rad duration:0.1]];
 }
 
 - (void) makeTerrain
