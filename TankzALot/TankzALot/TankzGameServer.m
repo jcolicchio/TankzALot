@@ -17,8 +17,10 @@
 @implementation TankzGameServer
 
 -(id)init{
-    if(self = [super init])
+    if(self = [super init]){
         self.gravity=10;
+        self.gameState.turn=0;
+    }
     return self;
 }
 
