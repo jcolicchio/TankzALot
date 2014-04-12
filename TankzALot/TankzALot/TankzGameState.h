@@ -11,7 +11,8 @@
 typedef enum {
     TankzPlayingStateReady = 0,
     TankzPlayingStateRunning = 1,
-    TankzPlayingStateDone = 2
+    TankzPlayingStateFiring = 2,
+    TankzPlayingStateDone = 3
 }TankzPlayingState;
 
 @interface TankzGameState : NSObject
