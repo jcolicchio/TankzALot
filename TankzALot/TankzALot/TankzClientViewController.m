@@ -31,6 +31,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // Initialize the game server
+    self.gameServer = [[TankzGameServer alloc] init];
+    // gameServer interaction goes here.
+    
     self.view = [[SKView alloc] initWithFrame:self.view.frame];
     SKView *spriteView = (SKView *) self.view;
     
@@ -41,6 +45,22 @@
     TankzScene *scene = [[TankzScene alloc] initWithSize:spriteView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     [spriteView presentScene:scene];
+    
+    // I guess here is where we go
+    // while (TankzGameServer says it's not my turn)
+    // {
+    //      [scene updateWithGameState:[gameServer getGameState]];
+    // }
+    
+}
+
+- (TankzScene *)display
+{
+    SKView *spriteView = (SKView *) self.view;
+    
+    TankzScene *scene = [[TankzScene alloc] initWithSize:spriteView.bounds.size];
+    
+    return scene;
 }
 
 - (void)didReceiveMemoryWarning

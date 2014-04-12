@@ -8,6 +8,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#import "TankzGameState.h"
+
 @interface TankzScene : SKScene
 
 @property int playerCount;
@@ -15,5 +17,6 @@
 
 - (id) initWithSize:(CGSize)size andPlayerCount:(int)count;
 
+- (void) updateWithGameState:(TankzGameState *)GameState;
 
 @end

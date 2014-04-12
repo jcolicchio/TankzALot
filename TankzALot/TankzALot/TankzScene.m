@@ -8,6 +8,8 @@
 
 #import "TankzScene.h"
 
+#import "TankzPlayer.h"
+
 @interface TankzScene ()
 @property BOOL contentCreated;
 @end
@@ -39,6 +41,17 @@
     
 }
 
+// the big motherfucker of drawing functions
+// this guy will take a gamestate, unpack it, and update
+// the scene to reflect the new gamestate
+- (void) updateWithGameState:(TankzGameState *)GameState
+{
+    // this is going to have to be changed for proper movement
+    // for now this will go through the player array and draw
+    // tanks
+    [self drawTanks:[GameState playerList]];
+}
+
 // tank building function
 // creates a color-colored tank
 // at position Pos
@@ -60,13 +73,33 @@
     
     [hull addChild:turret];
     
-    SKSpriteNode *gun = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(20, 3)];
+    SKSpriteNode *gun = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(30, 3)];
     
-    gun.position = CGPointMake(turret.size.width/2 + gun.size.width/2, 0);
+    gun.name = @"gun";
+    
+    //gun.position = CGPointMake(turret.size.width/2 + gun.size.width/2, 0);
+    
+    gun.anchorPoint = CGPointMake(-0.1, 0);
     
     [turret addChild:gun];
     
     return hull;
+}
+
+// right now it goes through the list of players and draws a tanks at their position
+- (void) drawTanks:(NSMutableArray *)playerList
+{
+    for (TankzPlayer *player in playerList) {
+        SKSpriteNode* tank = [self newTankwithColor:player.color withPosition:player.position];
+        // now set the angle of the player's gun
+        }
+}
+
+// rotates the gun to the Rad position
+- (void) setGunArc:(float)rad ofTank:(SKSpriteNode*)tank
+{
+    SKSpriteNode *gun = (SKSpriteNode*) [tank childNodeWithName:@"gun"];
+    gun.zRotation = rad;
 }
 
 @end
