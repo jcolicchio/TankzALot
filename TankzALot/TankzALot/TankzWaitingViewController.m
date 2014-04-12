@@ -13,6 +13,7 @@
 
 @property (strong,nonatomic) UITableView * tableView;
 @property (strong,nonatomic) MCSession *session;
+@property (strong,nonatomic) UILabel *label;
 
 @property BOOL isHost;
 
@@ -55,9 +56,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor blueColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 60)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2 + 60, self.view.frame.size.width, self.view.frame.size.height/2 - 60)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview: self.tableView];
@@ -65,6 +66,14 @@
     [self.tableView registerClass:[NameCell class] forCellReuseIdentifier:@"nameCell"];
     
     
+    
+    //Text
+    self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/4, self.view.frame.size.width, 60)];
+    self.label.text = @"Currently connected players";
+    self.label.backgroundColor = [UIColor clearColor];
+    self.label.textColor = [UIColor blackColor];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.label];
     
     UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
@@ -99,6 +108,7 @@
 }
 
 -(void)userChange:(NSArray *) connectedUsers {
+    [self.tableView reloadData];
     NSLog(@"YO WE GOT A CALLBACK");
 }
 
