@@ -99,12 +99,12 @@
         NSLog(@"Move Right");
         
     }else if(playerCommand == TankzPlayerCommandAimCCW){
-        if (playerState.turretPosition>180){
+        if (playerState.turretPosition<180){
             playerState.turretPosition++;
         }
         NSLog(@"Aim CCW");
     }else if(playerCommand == TankzPlayerCommandAimCW){
-        if(playerState.turretPosition<0){
+        if(playerState.turretPosition>0){
             playerState.turretPosition--;
         }
         NSLog(@"Aim CW");
