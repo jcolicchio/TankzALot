@@ -44,10 +44,14 @@
 // create the tank sprite nodes based off an initial gamestate. Fuck it.
 - (void) initalizeToGameState:(TankzGameState *)GameState
 {
+    
+    NSLog(@"Scene's initialize is getting called.");
+    
+    [self makeTerrain];
+    
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
-        
-        [self makeTerrain];
+        NSLog(@"%d", player.playerID);
         
         SKSpriteNode* tank =
         [self newTankwithId:player.playerID withColor:player.color withPosition:player.position];
