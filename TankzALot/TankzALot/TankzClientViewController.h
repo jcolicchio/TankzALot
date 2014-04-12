@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 LAHacks. All rights reserved.
 //
 
+#import "TankzGameServer.h"
 #import <UIKit/UIKit.h>
 
 @interface TankzClientViewController : UIViewController
+
+@property (strong, nonatomic) TankzGameServer *gameServer;
 
 @end
