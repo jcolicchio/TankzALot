@@ -93,9 +93,7 @@
 
 -(void)onCancelButtonClick {
     
-    if(!self.isHost) {
-        [self.session disconnect];
-    }
+    [self.session disconnect];
     
     TankzViewController *tankzVC = (TankzViewController *)[self presentingViewController];
     tankzVC.isHost = NO;
@@ -115,6 +113,7 @@
 
 -(void)userChange:(NSArray *) connectedUsers {
     [self.tableView reloadData];
+    
     NSLog(@"YO WE GOT A CALLBACK");
 }
 
