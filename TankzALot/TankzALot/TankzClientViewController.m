@@ -95,6 +95,11 @@
     [rightButton setFrame:CGRectMake(320-buttonSize.width, self.view.frame.size.height - buttonSize.height, buttonSize.width, buttonSize.height)];
     [upButton setFrame:CGRectMake(160-buttonSize.width/2.0f, self.view.frame.size.height - buttonSize.height*2.0f, buttonSize.width, buttonSize.height)];
     
+    [leftButton addTarget:self action:@selector(pressLeft) forControlEvents:UIControlEventTouchUpInside];
+    [downButton addTarget:self action:@selector(pressDown) forControlEvents:UIControlEventTouchUpInside];
+    [rightButton addTarget:self action:@selector(pressRight) forControlEvents:UIControlEventTouchUpInside];
+    [upButton addTarget:self action:@selector(pressUp) forControlEvents:UIControlEventTouchUpInside];
+    
     [leftButton setTitle:@"Left" forState:UIControlStateNormal];
     [downButton setTitle:@"Down" forState:UIControlStateNormal];
     [rightButton setTitle:@"Right" forState:UIControlStateNormal];
