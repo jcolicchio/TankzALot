@@ -101,7 +101,9 @@
     [leftButton addTarget:self action:@selector(pressLeft) forControlEvents:UIControlEventTouchUpInside];
     [downButton addTarget:self action:@selector(pressDown) forControlEvents:UIControlEventTouchUpInside];
     [rightButton addTarget:self action:@selector(pressRight) forControlEvents:UIControlEventTouchUpInside];
-    [upButton addTarget:self action:@selector(pressUp) forControlEvents:UIControlEventTouchUpInside];
+    [upButton addTarget:self action:@selector(pressUp) forControlEvents:UIControlEventTouchDown];
+    
+    [upButton addTarget:self action:@selector(stopAnim) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     
     [leftButton setTitle:@"Left" forState:UIControlStateNormal];
     [downButton setTitle:@"Down" forState:UIControlStateNormal];
@@ -152,20 +154,85 @@
 }
  */
 
+// redundancy ahoy
+// someone should figure out how to turn every press down event into one function
+// but it isn't going to be me
 - (void) pressUp {
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];
+    if (!self._timer) {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        
+        float timeoutInSeconds = 0.1;
+        
+        dispatch_source_set_timer(
+                                  self._timer,
+                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
+                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
+        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];});
+    }
+    
+    dispatch_resume(self._timer);
 }
 
 - (void) pressDown {
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];
+    if (!self._timer) {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        
+        float timeoutInSeconds = 0.1;
+        
+        dispatch_source_set_timer(
+                                  self._timer,
+                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
+                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
+        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];});
+    }
+    
+    dispatch_resume(self._timer);
 }
 
 - (void) pressLeft {
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];
+    if (!self._timer) {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        
+        float timeoutInSeconds = 0.1;
+        
+        dispatch_source_set_timer(
+                                  self._timer,
+                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
+                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
+        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];});
+    }
+    
+    dispatch_resume(self._timer);
+
 }
 
 - (void) pressRight {
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
+    if (!self._timer) {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        
+        float timeoutInSeconds = 0.1;
+        
+        dispatch_source_set_timer(
+                                  self._timer,
+                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
+                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
+        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];});
+    }
+    
+    dispatch_resume(self._timer);
+
+}
+
+- (void) stopAnim{
+    if(self._timer){
+        //dispatch_suspend(self._timer);
+        dispatch_source_cancel(self._timer);
+        self._timer = NULL;
+    }
 }
 
 - (void) updateWithGameState:(TankzGameState *)gameState
