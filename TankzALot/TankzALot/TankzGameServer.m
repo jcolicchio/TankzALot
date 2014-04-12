@@ -17,7 +17,8 @@
 @implementation TankzGameServer
 
 -(id)init{
-    self.gravity=10;
+    if(self = [super init])
+        self.gravity=10;
     return self;
 }
 
@@ -75,12 +76,7 @@
         int distance = timeTraveled*horizComponent;
         
         //check if shot direction is left or right
-        CGPoint bombsite;//coordinate of bomb location
-        if (playerState.turretPosition<90){ //right
-            bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
-        }else{ //left
-            bombsite = CGPointMake(playerState.position.x-distance, playerState.position.y);
-        }
+        CGPoint bombsite = CGPointMake(playerState.position.x-distance, playerState.position.y);
         
         //check if any players are within range of the bullet
         //deal damage to players within range of bullet
