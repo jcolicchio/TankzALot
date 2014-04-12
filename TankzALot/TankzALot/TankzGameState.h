@@ -21,4 +21,5 @@ typedef enum {
 @property (nonatomic) int turn;
 @property (nonatomic) TankzPlayingState playingState;
 
+-(TankzGameState*)copyGameState;
 @end

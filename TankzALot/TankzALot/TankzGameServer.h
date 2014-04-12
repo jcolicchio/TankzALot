@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TankzGameState.h"
 
 @interface TankzGameServer : NSObject
+
+-(TankzGameState*)getGameState;
+
 
 @end
