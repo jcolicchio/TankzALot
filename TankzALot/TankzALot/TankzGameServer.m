@@ -8,6 +8,7 @@
 
 #import "TankzGameServer.h"
 #import "TankzClientViewController.h"
+#import <SpriteKit/SpriteKit.h>
 
 @interface TankzGameServer ()
 
@@ -21,6 +22,7 @@
     if(self = [super init]){
         self.gravity=10;
         self.gameState.turn=0;
+        self.viewController = vc;
         //initialize game with number of players
         [self startGame:2];
     }
@@ -32,6 +34,7 @@
     player1.playerID = 0;
     player1.position = CGPointMake(200,200);
     player1.turretPosition = 0;
+    player1.color = [SKColor orangeColor];
     player1.health = 100;
     player1.fuel = 100;
     player1.power = 50;
@@ -43,6 +46,7 @@
     player2.playerID = 0;
     player2.position = CGPointMake(100,200);
     player2.turretPosition = 0;
+    player2.color = [SKColor blueColor];
     player2.health = 100;
     player2.fuel = 100;
     player2.power = 50;
