@@ -6,7 +6,10 @@
 //  Copyright (c) 2014 LAHacks. All rights reserved.
 //
 
+#import "TankzClientViewController.h"
 #import "TankzViewController.h"
+
+#import "TankzGameServer.h"
 
 @interface TankzViewController ()
 
@@ -129,6 +132,9 @@ static NSString * const XXServiceType = @"TankzALot";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)launchGame:(id)sender {
+    [self presentViewController:[[TankzClientViewController alloc] init] animated:YES completion:nil];
 }
 
 
