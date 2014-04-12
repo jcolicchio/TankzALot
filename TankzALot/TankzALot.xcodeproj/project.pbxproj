@@ -28,7 +28,6 @@
 		84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA637A18F9267100DCAC3F /* TankzGameServer.m */; };
 		FE1D5A5E18F9541A000C7114 /* TankzPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D5A5D18F9541A000C7114 /* TankzPlayer.m */; };
 		FE78822318F933340030FE7E /* TankzGameState.m in Sources */ = {isa = PBXBuildFile; fileRef = FE78822218F933340030FE7E /* TankzGameState.m */; };
-		FE78822618F946DD0030FE7E /* TankzPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FE78822518F946DD0030FE7E /* TankzPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +72,6 @@
 		FE1D5A5D18F9541A000C7114 /* TankzPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzPlayer.m; sourceTree = "<group>"; };
 		FE78822118F933340030FE7E /* TankzGameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzGameState.h; sourceTree = "<group>"; };
 		FE78822218F933340030FE7E /* TankzGameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzGameState.m; sourceTree = "<group>"; };
-		FE78822418F946DD0030FE7E /* TankzPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzPlayer.h; sourceTree = "<group>"; };
-		FE78822518F946DD0030FE7E /* TankzPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,8 +150,6 @@
 				84CA637A18F9267100DCAC3F /* TankzGameServer.m */,
 				FE78822118F933340030FE7E /* TankzGameState.h */,
 				FE78822218F933340030FE7E /* TankzGameState.m */,
-				FE78822418F946DD0030FE7E /* TankzPlayer.h */,
-				FE78822518F946DD0030FE7E /* TankzPlayer.m */,
 				84069EC818F91982009F74A7 /* Images.xcassets */,
 				84069EB718F91982009F74A7 /* Supporting Files */,
 			);
@@ -296,7 +291,7 @@
 				84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */,
 				84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */,
 				84069EBD18F91982009F74A7 /* main.m in Sources */,
-				FE78822618F946DD0030FE7E /* TankzPlayer.m in Sources */,
+				FE1D5A5E18F9541A000C7114 /* TankzPlayer.m in Sources */,
 				84069EC118F91982009F74A7 /* TankzAppDelegate.m in Sources */,
 				84069EC718F91982009F74A7 /* TankzViewController.m in Sources */,
 			);
