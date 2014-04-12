@@ -27,6 +27,9 @@
 
 - (void)viewDidLoad
 {
+    // temp
+    self.my_player_id = 0;
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
