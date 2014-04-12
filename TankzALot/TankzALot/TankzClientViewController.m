@@ -32,8 +32,6 @@
     
     // Initialize the game server
     self.gameServer = [[TankzGameServer alloc] initWithViewController:self];
-    // gameServer interaction goes here.
-    
     /*
     // for now, we'll create a fake gamestate and update once.
     TankzGameState* phonyGameState = [[TankzGameState alloc] init];
@@ -163,6 +161,11 @@
 
 - (void) pressRight {
     [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
+}
+
+- (void) initalizeToGameState:(TankzGameState *)gameState
+{
+    [self.scene initalizeToGameState:gameState];
 }
 
 - (void) updateWithGameState:(TankzGameState *)gameState
