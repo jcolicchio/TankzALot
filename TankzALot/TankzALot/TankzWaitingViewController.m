@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 LAHacks. All rights reserved.
 //
 
+#import "TankzViewController.h"
 #import "TankzWaitingViewController.h"
 #import "NameCell.h"
 @interface TankzWaitingViewController ()
@@ -95,6 +96,11 @@
     if(!self.isHost) {
         [self.session disconnect];
     }
+    
+    TankzViewController *tankzVC = (TankzViewController *)[self presentingViewController];
+    tankzVC.isHost = NO;
+    tankzVC.isClient = NO;
+    tankzVC.onWaitScreenClient = NO;
     
     [self  dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"CLICKED CANCEL BUTTON");
