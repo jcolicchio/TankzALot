@@ -16,6 +16,7 @@
     TankzGameState *newGameState = [[TankzGameState alloc] init];
     newGameState.playerList = [NSMutableArray arrayWithArray:self.playerList];
     newGameState.turn = self.turn;
+    newGameState.gravity = self.gravity;
     newGameState.playingState = self.playingState;
     
     return newGameState;
