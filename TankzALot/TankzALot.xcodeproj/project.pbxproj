@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41F536B118F978B000A0F6D0 /* TankzWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F536B018F978B000A0F6D0 /* TankzWaitingViewController.m */; };
+		41F536B418F9806C00A0F6D0 /* NameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F536B318F9806C00A0F6D0 /* NameCell.m */; };
 		84069EB118F91982009F74A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB018F91982009F74A7 /* Foundation.framework */; };
 		84069EB318F91982009F74A7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB218F91982009F74A7 /* CoreGraphics.framework */; };
 		84069EB518F91982009F74A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB418F91982009F74A7 /* UIKit.framework */; };
@@ -41,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41F536AF18F978B000A0F6D0 /* TankzWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzWaitingViewController.h; sourceTree = "<group>"; };
+		41F536B018F978B000A0F6D0 /* TankzWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzWaitingViewController.m; sourceTree = "<group>"; };
+		41F536B218F9806C00A0F6D0 /* NameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCell.h; sourceTree = "<group>"; };
+		41F536B318F9806C00A0F6D0 /* NameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCell.m; sourceTree = "<group>"; };
 		84069EAD18F91982009F74A7 /* TankzALot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TankzALot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84069EB018F91982009F74A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84069EB218F91982009F74A7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -150,7 +156,11 @@
 				84CA637A18F9267100DCAC3F /* TankzGameServer.m */,
 				FE78822118F933340030FE7E /* TankzGameState.h */,
 				FE78822218F933340030FE7E /* TankzGameState.m */,
+				41F536AF18F978B000A0F6D0 /* TankzWaitingViewController.h */,
+				41F536B018F978B000A0F6D0 /* TankzWaitingViewController.m */,
 				84069EC818F91982009F74A7 /* Images.xcassets */,
+				41F536B218F9806C00A0F6D0 /* NameCell.h */,
+				41F536B318F9806C00A0F6D0 /* NameCell.m */,
 				84069EB718F91982009F74A7 /* Supporting Files */,
 			);
 			path = TankzALot;
@@ -287,8 +297,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE78822318F933340030FE7E /* TankzGameState.m in Sources */,
+				41F536B118F978B000A0F6D0 /* TankzWaitingViewController.m in Sources */,
 				84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */,
 				84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */,
+				41F536B418F9806C00A0F6D0 /* NameCell.m in Sources */,
 				84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */,
 				84069EBD18F91982009F74A7 /* main.m in Sources */,
 				FE1D5A5E18F9541A000C7114 /* TankzPlayer.m in Sources */,
