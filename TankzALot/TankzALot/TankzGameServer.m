@@ -23,9 +23,10 @@
         self.gravity=10;
         self.gameState.turn=0;
         self.viewController = vc;
+        self.gameState.playingState = 0;
         //initialize game with number of players
+        self.gameState.playerList = [[NSMutableArray alloc]init];
         [self startGame:2];
-        [self.viewController initializeToGameState:_gameState];
     }
     return self;
 }
