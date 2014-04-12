@@ -11,7 +11,8 @@
 typedef enum {
     TankzPlayingStateReady = 0,
     TankzPlayingStateRunning = 1,
-    TankzPlayingStateDone = 2
+    TankzPlayingStateFiring = 2,
+    TankzPlayingStateDone = 3
 }TankzPlayingState;
 
 @interface TankzGameState : NSObject
@@ -19,6 +20,7 @@ typedef enum {
 
 @property (strong,nonatomic) NSMutableArray *playerList;
 @property (nonatomic) int turn;
+@property (nonatomic) int gravity;
 @property (nonatomic) TankzPlayingState playingState;
 
 -(TankzGameState*)copyGameState;
