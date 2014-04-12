@@ -90,6 +90,7 @@
             // now set the angle of the player's gun
             [self setGunArc:angle ofTank:tank];
          
+            //[self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power];
         }
     }
 }
@@ -162,6 +163,39 @@
     ground.path = pathToDraw;
     [ground setStrokeColor:[SKColor orangeColor]];
     [self addChild:ground];
+}
+
+- (void) tankFires:(SKSpriteNode*)tank fromAngle:(float)rad withPower:(int)pow withGravity:(float)g
+{
+    SKSpriteNode *roundHEAT = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(3,3)];
+    
+    SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
+    
+    [gun addChild:roundHEAT];
+    
+    CGMutablePathRef projectilePath = CGPathCreateMutable();
+
+    CGPathMoveToPoint(projectilePath, nil, gun.size.width, 0);
+    
+    SKAction * projectileMotion = [SKAction followPath:projectilePath duration:1.0];
+    
+    int vertComponent = [self calculateVerticalComponent:pow andTurretPosition:rad];
+    int horizComponent = [self calculateHorizontalComponent:pow andTurretPosition:rad];
+    
+   // float timeTraveled = 2*(vertComponent)/self.gravity;
+    
+    //int distance = timeTraveled*horizComponent;
+    
+    [roundHEAT runAction:projectileMotion];
+    
+    
+}
+
+-(int)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
+    return powerComponent * cos(turretPosition);
+}
+-(int)calculateVerticalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
+    return powerComponent * sin(turretPosition);
 }
 
 @end
