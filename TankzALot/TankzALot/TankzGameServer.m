@@ -43,7 +43,7 @@
     
     TankzPlayer* player2 = [[TankzPlayer alloc] init];
     player2.name = @"Player2";
-    player2.playerID = 0;
+    player2.playerID = 1;
     player2.position = CGPointMake(100,200);
     player2.turretPosition = 0;
     player2.color = [SKColor blueColor];
