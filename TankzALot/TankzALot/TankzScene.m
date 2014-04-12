@@ -46,7 +46,6 @@
 {
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
-        NSLog(@"Draw!");
         
         SKSpriteNode* tank =
         [self newTankwithId:player.playerID withColor:player.color withPosition:player.position];
@@ -82,14 +81,12 @@
         
         if( tank ){
             
-        float angle = player.turretPosition * M_PI/180;
-        // now set the angle of the player's gun
-        [self setGunArc:angle ofTank:tank];
-            
-            
-            SKAction* move = [SKAction moveByX:3 y:0 duration:1.0];
-            
-            [tank runAction:move];
+            // move to next point
+            [self moveTank:tank to:player.position];
+                
+            float angle = player.turretPosition * M_PI/180;
+            // now set the angle of the player's gun
+            [self setGunArc:angle ofTank:tank];
          
         }
     }
@@ -133,9 +130,10 @@
     return hull;
 }
 
+// needs to be redone to follow terrain when we have a representation of it
 - (void) moveTank:(SKSpriteNode *)tank to:(CGPoint)point
 {
-    
+    [tank runAction:[SKAction moveToX:point.x duration:1.0]];
 }
 
 // rotates the gun to the Rad position

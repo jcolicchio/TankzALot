@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) TankzGameServer *gameServer;
 
+@property (nonatomic) int my_player_id;
+
 @end

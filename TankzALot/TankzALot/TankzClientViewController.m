@@ -150,19 +150,19 @@
  */
 
 - (void) pressUp {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];
 }
 
 - (void) pressDown {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];
 }
 
 - (void) pressLeft {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];
 }
 
 - (void) pressRight {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
 }
 
 @end
