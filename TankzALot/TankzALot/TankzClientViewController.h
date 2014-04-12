@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) TankzScene *scene;
 
-- (void) initalizeToGameState:(TankzGameState *)gameState;
+- (void) initializeToGameState:(TankzGameState *)gameState;
 
 - (void) updateWithGameState:(TankzGameState*)gameState;
 
