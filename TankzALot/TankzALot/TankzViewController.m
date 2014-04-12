@@ -21,9 +21,6 @@
 @property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
-@property BOOL isHost;
-@property BOOL isClient;
-@property BOOL onWaitScreenClient;
 
 //Joiner's view
 //@property (nonatomic, strong) MCAdvertiserAssistant *games_list;
@@ -132,12 +129,6 @@ static NSString * const XXServiceType = @"TankzALot";
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    //Initalize booleans for the fuck of it
-    self.onWaitScreenClient = NO;
-    self.isHost = NO;
-    self.isClient = NO;
-
     
 }
 
