@@ -11,4 +11,8 @@
 
 @interface TankzViewController : UIViewController <MCNearbyServiceAdvertiserDelegate,MCSessionDelegate,MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelegate>
 
+@property BOOL isHost;
+@property BOOL isClient;
+@property BOOL onWaitScreenClient;
+
 @end

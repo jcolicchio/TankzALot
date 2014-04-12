@@ -21,10 +21,39 @@
     if(self = [super init]){
         self.gravity=10;
         self.gameState.turn=0;
-        self.viewController = vc;
+        //initialize game with number of players
+        [self startGame:2];
     }
     return self;
 }
+-(void)startGame:(int)numPlayers{
+    TankzPlayer* player1 = [[TankzPlayer alloc] init];
+    player1.name = @"Player1";
+    player1.playerID = 0;
+    player1.position = CGPointMake(200,200);
+    player1.turretPosition = 0;
+    player1.health = 100;
+    player1.fuel = 100;
+    player1.power = 50;
+    
+    [self.gameState.playerList addObject:player1];
+    
+    TankzPlayer* player2 = [[TankzPlayer alloc] init];
+    player2.name = @"Player2";
+    player2.playerID = 0;
+    player2.position = CGPointMake(100,200);
+    player2.turretPosition = 0;
+    player2.health = 100;
+    player2.fuel = 100;
+    player2.power = 50;
+    
+    [self.gameState.playerList addObject:player2];
+    
+    
+    
+    
+}
+
 
 
 
@@ -90,7 +119,7 @@
         for(TankzPlayer *player in self.gameState.playerList) {
             int a = player.position.x - bombsite.x;
             int b = player.position.y - bombsite.y;
-            int c = pow(a*a+b*b, 0.5);
+            int c = sqrt(a*a+b*b);
             
             //TODO:do damage based on distance
             if(c < 3){
@@ -116,6 +145,44 @@
     
 }
 
+/*
+-(int)main{ //test
+    NSMutableArray *phonyPlayerList = [[NSMutableArray alloc] init];
+    
+    TankzPlayer* phonyPlayer1 = [[TankzPlayer alloc] init];
+    
+    phonyPlayer1.name = @"Player1";
+    
+    phonyPlayer1.playerID = 0;
+    
+    phonyPlayer1.position = CGPointMake(200,200);
+    
+    phonyPlayer1.turretPosition = 3;
+    
+    [phonyPlayerList addObject:phonyPlayer1];
+    
+    TankzPlayer* phonyPlayer2 = [[TankzPlayer alloc] init];
+    
+    phonyPlayer2.name = @"Player2";
+    
+    phonyPlayer2.playerID = 1;
+    
+    
+    phonyPlayer2.position = CGPointMake(100,180);
+    
+    phonyPlayer2.turretPosition = 45;
+    
+    [phonyPlayerList addObject:phonyPlayer2];
+    
+    self.gameState.playerList = phonyPlayerList;
+    
+    NSLog(@"value: %f",phonyPlayer2.turretPosition);
+    sendPlayerCommand
+    NSLog(@"new value: %f",phonyPlayer2.turretPosition);
+    
+    return 0;
+}
+*/
 
 -(int)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
     return powerComponent * cos(M_PI/180*turretPosition);

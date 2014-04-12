@@ -21,9 +21,6 @@
 @property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
-@property BOOL isHost;
-@property BOOL isClient;
-@property BOOL onWaitScreenClient;
 
 //Joiner's view
 //@property (nonatomic, strong) MCAdvertiserAssistant *games_list;
@@ -133,12 +130,6 @@ static NSString * const XXServiceType = @"TankzALot";
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    //Initalize booleans for the fuck of it
-    self.onWaitScreenClient = NO;
-    self.isHost = NO;
-    self.isClient = NO;
-
-    
 }
 
 
@@ -218,12 +209,14 @@ static NSString * const XXServiceType = @"TankzALot";
         self.onWaitScreenClient = YES;
         
         [self.browser stopBrowsingForPeers];
-        [self.browserVC dismissViewControllerAnimated:YES completion:^{
-            self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost];
-            [self presentViewController:self.waitingVC animated:YES completion:^{
-                [self.waitingVC userChange:session.connectedPeers]; //Call with the current connected peers(just the one dude);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.browserVC dismissViewControllerAnimated:YES completion:^{
+                self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost];
+                [self presentViewController:self.waitingVC animated:YES completion:^{
+                    [self.waitingVC userChange:session.connectedPeers]; //Call with the current connected peers(just the one dude);
+                }];
             }];
-        }];
+        });
         
     }
     NSLog(@"Peer %@ changed to state %@",peerID.displayName,[NSNumber numberWithInt:state]);
