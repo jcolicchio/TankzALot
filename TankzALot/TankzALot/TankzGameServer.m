@@ -7,6 +7,7 @@
 //
 
 #import "TankzGameServer.h"
+#import "TankzClientViewController.h"
 
 @interface TankzGameServer ()
 
@@ -16,7 +17,7 @@
 
 @implementation TankzGameServer
 
--(id)init{
+-(id)initWithViewController:(TankzClientViewController*)vc{
     if(self = [super init]){
         self.gravity=10;
         self.gameState.turn=0;

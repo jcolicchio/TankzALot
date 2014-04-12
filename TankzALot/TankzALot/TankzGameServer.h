@@ -19,12 +19,16 @@ typedef enum{
     
 } TankzPlayerCommand;
 
-
+@class TankzClientViewController;
 
 @interface TankzGameServer : NSObject
 
+@property (nonatomic, strong) TankzClientViewController *viewController;
 
 @property (nonatomic) int gravity;
+
+//init modified with ViewController
+-(id)initWithViewController:(TankzClientViewController*)vc;
 
 //used by client to obtain current game state
 -(TankzGameState*)getGameState;
