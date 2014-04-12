@@ -44,10 +44,14 @@
 // create the tank sprite nodes based off an initial gamestate. Fuck it.
 - (void) initalizeToGameState:(TankzGameState *)GameState
 {
+    
+    NSLog(@"Scene's initialize is getting called.");
+    
+    [self makeTerrain];
+    
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
-        
-        [self makeTerrain];
+        NSLog(@"%d", player.playerID);
         
         SKSpriteNode* tank =
         [self newTankwithId:player.playerID withColor:player.color withPosition:player.position];
@@ -69,9 +73,6 @@
     // this is going to have to be changed for proper movement
     // for now this will go through the player array and draw
     // tanks
-    
-    // right now it's creating more tanks with every gamestate update
-    // this is dumb.
     
     // it should just move already existing tanks.
     NSMutableArray * playerList = GameState.playerList;
@@ -128,6 +129,9 @@
     
     [turret addChild:gun];
     
+    hull.xScale = 0.5;
+    hull.yScale = 0.5;
+    
     return hull;
 }
 
@@ -142,7 +146,7 @@
 {
     SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
 
-    [gun runAction:[SKAction rotateToAngle:rad duration:3.0]];
+    [gun runAction:[SKAction rotateToAngle:rad duration:0.0]];
 }
 
 // how
