@@ -25,6 +25,7 @@
 		84069EE818F919CA009F74A7 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */; };
 		84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EEA18F91A68009F74A7 /* TankzClientViewController.m */; };
 		84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EED18F91B24009F74A7 /* TankzScene.m */; };
+		840BEF3118F9435B004C3545 /* TankzPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 840BEF3018F9435B004C3545 /* TankzPlayer.m */; };
 		84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA637A18F9267100DCAC3F /* TankzGameServer.m */; };
 		FE78822318F933340030FE7E /* TankzGameState.m in Sources */ = {isa = PBXBuildFile; fileRef = FE78822218F933340030FE7E /* TankzGameState.m */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,8 @@
 		84069EEA18F91A68009F74A7 /* TankzClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzClientViewController.m; sourceTree = "<group>"; };
 		84069EEC18F91B24009F74A7 /* TankzScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzScene.h; sourceTree = "<group>"; };
 		84069EED18F91B24009F74A7 /* TankzScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzScene.m; sourceTree = "<group>"; };
+		840BEF2F18F9435B004C3545 /* TankzPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzPlayer.h; sourceTree = "<group>"; };
+		840BEF3018F9435B004C3545 /* TankzPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzPlayer.m; sourceTree = "<group>"; };
 		84CA637918F9267100DCAC3F /* TankzGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzGameServer.h; sourceTree = "<group>"; };
 		84CA637A18F9267100DCAC3F /* TankzGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzGameServer.m; sourceTree = "<group>"; };
 		FE78822118F933340030FE7E /* TankzGameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzGameState.h; sourceTree = "<group>"; };
