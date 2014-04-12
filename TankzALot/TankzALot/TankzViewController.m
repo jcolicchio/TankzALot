@@ -10,6 +10,7 @@
 #import "TankzViewController.h"
 
 #import "TankzGameServer.h"
+#import "TankzWaitingViewController.h"
 
 @interface TankzViewController ()
 
@@ -18,6 +19,12 @@
 @property (strong,nonatomic) MCNearbyServiceBrowser * browser;
 @property (strong,nonatomic) MCPeerID *localPeerID;
 @property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
+@property (strong,nonatomic) TankzWaitingViewController * waitingVC;
+
+
+//Joiner's view
+//@property (nonatomic, strong) MCAdvertiserAssistant *games_list;
+
 
 //MCSessionState
 
@@ -26,29 +33,29 @@
 @implementation TankzViewController
 
 
+
 static NSString * const XXServiceType = @"TankzALot";
 
 -(void)showBrowse {
-  
-    [self presentViewController:self.browserVC
-                       animated:YES
-                     completion:
-     ^{
-         [self.browser startBrowsingForPeers];
-     }];
- 
+    self.isClient = YES;
+    
+//    [self presentViewController:self.browserVC
+//                       animated:YES
+//                     completion:
+//     ^{
+//         [self.browser startBrowsingForPeers];
+//     }];
+// 
+    
+    [self presentViewController:self.browserVC animated:YES completion:nil];
     
     NSLog(@"BROWSING");
-
-    
-//    
-//    [self.browserVC setDelegate:self];
-//    [self presentViewController:self.browserVC animated:YES completion:nil];
-//    
     
 }
 
 -(void)advertise {
+    self.isHost = YES;
+    
     self.advertiser =
     [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.localPeerID
                                       discoveryInfo:nil
@@ -64,6 +71,8 @@ static NSString * const XXServiceType = @"TankzALot";
 {
     [super viewDidLoad];
 
+    
+    
 	// Do any additional setup after loading the view, typically from a nib.
     
     
@@ -92,24 +101,30 @@ static NSString * const XXServiceType = @"TankzALot";
                                         securityIdentity:nil
                                     encryptionPreference:MCEncryptionNone];
     self.session.delegate = self;
-
-//    self.session = [[MCSession alloc] initWithPeer:self.localPeerID];
-//    self.session.delegate = self;
-
+    
+    
     
     //Initalize Browser view
     
-    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
-    self.browser.delegate = self;
-    
-    self.browserVC =
-    [[MCBrowserViewController alloc] initWithBrowser:self.browser
-                                             session:self.session];
-    //self.browserVC.delegate = self;
+//    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
+//    self.browser.delegate = self;
 
+    //    self.browserVC =
+    //    [[MCBrowserViewController alloc] initWithBrowser:self.browser
+    //                                             session:self.session];
     
-//    self.browserVC = [[MCBrowserViewController alloc] initWithServiceType:XXServiceType session:self.session];
-  
+    
+    //Other way of doing it
+    self.browserVC = [[MCBrowserViewController alloc] initWithServiceType:XXServiceType session:self.session];
+    self.browserVC.delegate = self;
+    
+
+}
+
+-(void)goToClientWaitScreen {
+    [self browserViewControllerDidFinish : self.browserVC];
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -139,7 +154,7 @@ static NSString * const XXServiceType = @"TankzALot";
 
 
 -(void) browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID {
-    NSLog(@"PEER SHIT");
+    NSLog(@"PEER SHIT LOST PEER");
     
 }
 -(void) browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info {
@@ -151,7 +166,8 @@ static NSString * const XXServiceType = @"TankzALot";
 
 }
 -(void) browserViewControllerDidFinish:(MCBrowserViewController *)browserViewController {
-    [self.browserVC dismissViewControllerAnimated:YES completion:nil];
+    [browserViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.browser stopBrowsingForPeers];
     NSLog(@"BROSWER VIEW CONTROLLER FINISHED");
 }
 
@@ -180,11 +196,32 @@ static NSString * const XXServiceType = @"TankzALot";
     
 }
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
-    NSDictionary * dict = @{@"peerID": peerID,
-                           @"state" : [NSNumber numberWithInt:state]
-                           };
     
+//    NSDictionary * dict = @{@"peerID": peerID,
+//                           @"state" : [NSNumber numberWithInt:state]
+//                           };
+    
+    if(self.isClient && self.onWaitScreenClient) {
+        [self.waitingVC userChange:session.connectedPeers];
+    }
+    
+    if(self.isClient && !self.onWaitScreenClient) {
+        self.onWaitScreenClient = YES;
+        
+        [self.browser stopBrowsingForPeers];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.browserVC dismissViewControllerAnimated:YES completion:^{
+                self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost];
+                [self presentViewController:self.waitingVC animated:YES completion:^{
+                    [self.waitingVC userChange:session.connectedPeers]; //Call with the current connected peers(just the one dude);
+                }];
+            }];
+        });
+        
+    }
+    NSLog(@"Peer %@ changed to state %@",peerID.displayName,[NSNumber numberWithInt:state]);
     NSLog(@" Session shit didChangeState");
+    
 }
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler {
