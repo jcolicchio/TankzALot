@@ -14,8 +14,9 @@
 
 @property int playerCount;
 
-
 - (id) initWithSize:(CGSize)size andPlayerCount:(int)count;
+
+- (void) initalizeToGameState:(TankzGameState *)GameState;
 
 - (void) updateWithGameState:(TankzGameState *)GameState;
 
