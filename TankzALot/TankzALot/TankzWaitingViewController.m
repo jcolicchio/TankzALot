@@ -92,16 +92,15 @@
 }
 
 -(void)onCancelButtonClick {
-    
+    NSLog(@"CLICKED CANCEL BUTTON, DISCONNECTED FROM SESSION");
+
     [self.session disconnect];
     
     TankzViewController *tankzVC = (TankzViewController *)[self presentingViewController];
     tankzVC.isHost = NO;
-    tankzVC.isClient = NO;
     tankzVC.onWaitScreenClient = NO;
     
     [self  dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"CLICKED CANCEL BUTTON");
     
 }
 
