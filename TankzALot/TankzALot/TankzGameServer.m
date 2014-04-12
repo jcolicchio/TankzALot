@@ -41,7 +41,7 @@
         int playerFuel = playerState.fuel;
         if (playerFuel>0){
             //STUB: update CGPoint position
-            
+            playerState.position = CGPointMake(playerState.position.x-1, playerState.position.y);
             playerState.fuel = playerFuel-1;
             
         }
@@ -51,7 +51,7 @@
         int playerFuel = playerState.fuel;
         if (playerFuel>0){
             //STUB: update CGPoint position
-            
+            playerState.position = CGPointMake(playerState.position.x+1,playerState.position.y);
             playerState.fuel = playerFuel-1;
             
         }
@@ -66,7 +66,6 @@
             playerState.turretPosition--;
         }
     }else if(playerCommand == TankzPlayerCommandFire){
-        //STUB: fire, move to next player(who isn't dead), handle damage
         
         int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
         int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
@@ -74,6 +73,37 @@
         float timeTraveled = 2*playerState.power/self.gravity;
         
         int distance = timeTraveled*horizComponent;
+        
+        //check if shot direction is left or right
+        CGPoint bombsite;//coordinate of bomb location
+        if (playerState.turretPosition<90){ //right
+            bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
+        }else{ //left
+            bombsite = CGPointMake(playerState.position.x-distance, playerState.position.y);
+        }
+        
+        //check if any players are within range of the bullet
+        //deal damage to players within range of bullet
+        for(TankzPlayer *player in self.gameState.playerList) {
+            int a = player.position.x - bombsite.x;
+            int b = player.position.y - bombsite.y;
+            int c = pow(a*a+b*b, 0.5);
+            
+            //TODO:do damage based on distance
+            if(c < 3){
+                player.health = player.health-50;
+            }
+        }
+        
+        //move turn to next player who isn't dead
+        
+        int numPlayers = [self.gameState.playerList count];
+        TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID];
+        while (cycledPlayer.health < 0){
+            self.gameState.turn++;
+            if (self.gameState.turn >= numPlayers)
+                self.gameState.turn=0;
+        }
         
     }
     
