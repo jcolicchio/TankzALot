@@ -74,7 +74,6 @@
     // it should just move already existing tanks.
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
-        NSLog(@"Draw!");
         
         SKSpriteNode* tank = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"%d",player.playerID]];
         
