@@ -34,7 +34,6 @@
     self.view = [[SKView alloc] initWithFrame:self.view.frame];
     SKView *spriteView = (SKView *) self.view;
     
-    
     spriteView.showsDrawCount = YES;
     spriteView.showsNodeCount = YES;
     spriteView.showsFPS = YES;

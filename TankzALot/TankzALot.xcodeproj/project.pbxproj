@@ -25,6 +25,7 @@
 		84069EE818F919CA009F74A7 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */; };
 		84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EEA18F91A68009F74A7 /* TankzClientViewController.m */; };
 		84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EED18F91B24009F74A7 /* TankzScene.m */; };
+		84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA637A18F9267100DCAC3F /* TankzGameServer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		84069EEA18F91A68009F74A7 /* TankzClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzClientViewController.m; sourceTree = "<group>"; };
 		84069EEC18F91B24009F74A7 /* TankzScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzScene.h; sourceTree = "<group>"; };
 		84069EED18F91B24009F74A7 /* TankzScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzScene.m; sourceTree = "<group>"; };
+		84CA637918F9267100DCAC3F /* TankzGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzGameServer.h; sourceTree = "<group>"; };
+		84CA637A18F9267100DCAC3F /* TankzGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzGameServer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				84069EEA18F91A68009F74A7 /* TankzClientViewController.m */,
 				84069EEC18F91B24009F74A7 /* TankzScene.h */,
 				84069EED18F91B24009F74A7 /* TankzScene.m */,
+				84CA637918F9267100DCAC3F /* TankzGameServer.h */,
+				84CA637A18F9267100DCAC3F /* TankzGameServer.m */,
 				84069EC818F91982009F74A7 /* Images.xcassets */,
 				84069EB718F91982009F74A7 /* Supporting Files */,
 			);
@@ -269,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */,
+				84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */,
 				84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */,
 				84069EBD18F91982009F74A7 /* main.m in Sources */,
 				84069EC118F91982009F74A7 /* TankzAppDelegate.m in Sources */,
@@ -477,6 +483,7 @@
 				84069EE118F91982009F74A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84069EE218F91982009F74A7 /* Build configuration list for PBXNativeTarget "TankzALotTests" */ = {
 			isa = XCConfigurationList;
@@ -485,6 +492,7 @@
 				84069EE418F91982009F74A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
