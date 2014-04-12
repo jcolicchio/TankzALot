@@ -21,8 +21,6 @@
 @property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
-@property (strong,nonatomic) MCPeerID * host;
-
 
 //Joiner's view
 //@property (nonatomic, strong) MCAdvertiserAssistant *games_list;
@@ -39,7 +37,12 @@
 static NSString * const XXServiceType = @"TankzALot";
 
 -(void)showBrowse {
-    self.isClient = YES;
+    self.isHost = NO;
+    
+    //Other way of doing it
+    self.browserVC = [[MCBrowserViewController alloc] initWithServiceType:XXServiceType session:self.session];
+    self.browserVC.delegate = self;
+
     
 //    [self presentViewController:self.browserVC
 //                       animated:YES
@@ -56,12 +59,11 @@ static NSString * const XXServiceType = @"TankzALot";
 }
 
 -(void)advertise {
-    
-    if(self.session)
+
+    if(self.session){
         [self.session disconnect];
-    if(self.host)
-        self.host = nil;
-    
+    }
+    self.host = self.localPeerID;
     self.isHost = YES;
     
     self.advertiser =
@@ -104,14 +106,6 @@ static NSString * const XXServiceType = @"TankzALot";
     //Create peer ID (we can change later, but probably wont)
     self.localPeerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
     
-    //Create session
-    self.session = [[MCSession alloc] initWithPeer:self.localPeerID
-                                        securityIdentity:nil
-                                    encryptionPreference:MCEncryptionNone];
-    self.session.delegate = self;
-    
-    
-    
     //Initalize Browser view
     
 //    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
@@ -122,17 +116,27 @@ static NSString * const XXServiceType = @"TankzALot";
     //                                             session:self.session];
     
     
-    //Other way of doing it
-    self.browserVC = [[MCBrowserViewController alloc] initWithServiceType:XXServiceType session:self.session];
-    self.browserVC.delegate = self;
+    
+    //Create session
+    self.session = [[MCSession alloc] initWithPeer:self.localPeerID
+                                  securityIdentity:nil
+                              encryptionPreference:MCEncryptionNone];
+    self.session.delegate = self;
+    
+    NSLog(@"VIEW DID LOAD, CREATED SESSION");
+
     
 
 }
 
--(void)goToClientWaitScreen {
-    [self browserViewControllerDidFinish : self.browserVC];
-    
-    
+-(void)resetSession {
+    self.waitingVC = nil;
+    self.host = nil;
+    self.isHost = NO;
+    self.onWaitScreenClient = NO;
+
+    if(self.session)
+        [self.session disconnect];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -183,6 +187,8 @@ static NSString * const XXServiceType = @"TankzALot";
     NSLog(@"broswer view controller was canceled");
     [self.browser stopBrowsingForPeers];
     [self.browserVC dismissViewControllerAnimated:YES completion:nil];
+    
+    [self resetSession];
 }
 
 -(void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error {
@@ -203,14 +209,29 @@ static NSString * const XXServiceType = @"TankzALot";
 }
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
-    if(self.isClient && self.onWaitScreenClient) {
+    NSLog(@"isHost: %d onWaitScreenClient %d",self.isHost,self.onWaitScreenClient);
+    NSLog(@"Peer %@ changed to state %@",peerID.displayName,[NSNumber numberWithInt:state]);
+    NSLog(@"Number of peers: %d",session.connectedPeers.count);
+    if(!self.isHost && self.onWaitScreenClient) {
         [self.waitingVC userChange:session.connectedPeers];
     }
     
-    if(self.isClient && !self.onWaitScreenClient) {
+    if([peerID.displayName isEqualToString:self.host.displayName] && state == 0 && !self.isHost) {
+        NSLog(@"state: %d displayname %@",state,peerID.displayName);
+
+        NSLog(@"HOST WENT DOWN, EXITING SCREEN");
+        if(self.browser)
+            [self.browser stopBrowsingForPeers];
+        if(self.waitingVC) {
+            NSLog(@"GONNA DELETE SOME WAITING VC");
+            [self.waitingVC dismissViewControllerAnimated:YES completion:^{
+                [self resetSession];
+            }];
+        }
+    } else if(!self.isHost && !self.onWaitScreenClient) {
+        NSLog(@"NEW HOST IS: %@",peerID.displayName);
         self.host = peerID;
         self.onWaitScreenClient = YES;
-        
         [self.browser stopBrowsingForPeers];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.browserVC dismissViewControllerAnimated:YES completion:^{
@@ -220,9 +241,6 @@ static NSString * const XXServiceType = @"TankzALot";
         });
         
     }
-    NSLog(@"Peer %@ changed to state %@",peerID.displayName,[NSNumber numberWithInt:state]);
-    NSLog(@" Session shit didChangeState");
-    
 }
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler {
