@@ -49,7 +49,16 @@
     // this is going to have to be changed for proper movement
     // for now this will go through the player array and draw
     // tanks
-    [self drawTanks:[GameState playerList]];
+    NSMutableArray * playerList = GameState.playerList;
+    for (TankzPlayer *player in playerList) {
+        
+        SKSpriteNode* tank =
+        [self newTankwithColor:player.color withPosition:player.position];
+        
+        // now set the angle of the player's gun
+        [self setGunArc:M_PI_4 ofTank:tank];
+        
+    }
 }
 
 // tank building function
@@ -86,13 +95,9 @@
     return hull;
 }
 
-// right now it goes through the list of players and draws a tanks at their position
-- (void) drawTanks:(NSMutableArray *)playerList
+- (void) moveTank:(SKSpriteNode *)tank to:(CGPoint)point
 {
-    for (TankzPlayer *player in playerList) {
-        SKSpriteNode* tank = [self newTankwithColor:player.color withPosition:player.position];
-        // now set the angle of the player's gun
-        }
+    
 }
 
 // rotates the gun to the Rad position
@@ -100,6 +105,11 @@
 {
     SKSpriteNode *gun = (SKSpriteNode*) [tank childNodeWithName:@"gun"];
     gun.zRotation = rad;
+}
+
+- (void) makeTerrain
+{
+    
 }
 
 @end
