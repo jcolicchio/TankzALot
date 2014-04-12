@@ -25,7 +25,7 @@ typedef enum{
 
 @property (nonatomic, strong) TankzClientViewController *viewController;
 
-@property (nonatomic) int gravity;
+
 @property (nonatomic) int height;
 
 //init modified with ViewController
