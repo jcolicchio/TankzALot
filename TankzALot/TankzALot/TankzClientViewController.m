@@ -81,6 +81,10 @@
     scene.scaleMode = SKSceneScaleModeAspectFill;
     [spriteView presentScene:scene];
     
+    [scene initalizeToGameState:phonyGameState];
+    phonyPlayer2.turretPosition += 45;
+    [scene updateWithGameState:phonyGameState];
+
     UIButton *upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *downButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
