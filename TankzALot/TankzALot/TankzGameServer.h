@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TankzGameState.h"
 #import "TankzPlayer.h"
+#import "TankzClientViewController.h"
 
 typedef enum{
     TankzPlayerCommandMoveLeft = 0,

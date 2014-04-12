@@ -25,6 +25,7 @@
         self.viewController = vc;
         //initialize game with number of players
         [self startGame:2];
+        [TankzClientViewController ];
     }
     return self;
 }
