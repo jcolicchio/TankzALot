@@ -76,8 +76,7 @@
         int distance = timeTraveled*horizComponent;
         
         //check if shot direction is left or right
-        CGPoint bombsite = CGPointMake(playerState.position.x-distance, playerState.position.y);
-        
+        CGPoint bombsite = [CGPointMake(playerState.position.x+distance, playerState.position.y)];
         //check if any players are within range of the bullet
         //deal damage to players within range of bullet
         for(TankzPlayer *player in self.gameState.playerList) {
