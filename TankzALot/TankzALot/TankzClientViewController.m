@@ -7,7 +7,6 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "TankzScene.h"
 #import "TankzClientViewController.h"
 
 @interface TankzClientViewController ()
@@ -32,9 +31,10 @@
     // Do any additional setup after loading the view.
     
     // Initialize the game server
-    self.gameServer = [[TankzGameServer alloc] init];
+    self.gameServer = [[TankzGameServer alloc] initWithViewController:self];
     // gameServer interaction goes here.
     
+    /*
     // for now, we'll create a fake gamestate and update once.
     TankzGameState* phonyGameState = [[TankzGameState alloc] init];
     
@@ -69,7 +69,7 @@
     [phonyPlayerList addObject:phonyPlayer2];
     
     phonyGameState.playerList = phonyPlayerList;
-    
+    */
     self.view = [[SKView alloc] initWithFrame:self.view.frame];
     SKView *spriteView = (SKView *) self.view;
     
@@ -77,14 +77,14 @@
     spriteView.showsNodeCount = YES;
     spriteView.showsFPS = YES;
     
-    TankzScene *scene = [[TankzScene alloc] initWithSize:spriteView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    [spriteView presentScene:scene];
-    
-    [scene initalizeToGameState:phonyGameState];
+    self.scene = [[TankzScene alloc] initWithSize:spriteView.bounds.size];
+    self.scene.scaleMode = SKSceneScaleModeAspectFill;
+    [spriteView presentScene:self.scene];
+/*
+    [self.scene initalizeToGameState:phonyGameState];
     phonyPlayer2.turretPosition += 45;
-    [scene updateWithGameState:phonyGameState];
-
+    [self.scene updateWithGameState:phonyGameState];
+*/
     UIButton *upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *downButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -150,19 +150,24 @@
  */
 
 - (void) pressUp {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];
 }
 
 - (void) pressDown {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];
 }
 
 - (void) pressLeft {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];
 }
 
 - (void) pressRight {
-    
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
+}
+
+- (void) updateWithGameState:(TankzGameState *)gameState
+{
+     [self.scene updateWithGameState:gameState];
 }
 
 @end
