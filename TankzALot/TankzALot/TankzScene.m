@@ -143,7 +143,7 @@
 {
     SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
 
-    [gun runAction:[SKAction rotateToAngle:rad duration:0.1]];
+    [gun runAction:[SKAction rotateToAngle:rad duration:3.0]];
 }
 
 - (void) makeTerrain
