@@ -76,13 +76,15 @@
     spriteView.showsFPS = YES;
     
     self.scene = [[TankzScene alloc] initWithSize:spriteView.bounds.size];
+    
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     [spriteView presentScene:self.scene];
-/*
-    [self.scene initalizeToGameState:phonyGameState];
-    phonyPlayer2.turretPosition += 45;
-    [self.scene updateWithGameState:phonyGameState];
-*/
+
+    TankzGameState * initialGameState = [self.gameServer getGameState];
+    [self.scene initalizeToGameState:initialGameState];
+    //phonyPlayer2.turretPosition += 45;
+    //[self.scene updateWithGameState:phonyGameState];
+    
     UIButton *upButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *downButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -161,11 +163,6 @@
 
 - (void) pressRight {
     [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
-}
-
-- (void) initializeToGameState:(TankzGameState *)gameState
-{
-    [self.scene initalizeToGameState:gameState];
 }
 
 - (void) updateWithGameState:(TankzGameState *)gameState
