@@ -101,12 +101,12 @@
         
     }else if(playerCommand == TankzPlayerCommandAimCCW){
         if (playerState.turretPosition<180){
-            playerState.turretPosition++;
+            playerState.turretPosition+=5;
         }
         NSLog(@"Aim CCW");
     }else if(playerCommand == TankzPlayerCommandAimCW){
         if(playerState.turretPosition>0){
-            playerState.turretPosition--;
+            playerState.turretPosition-=5;
         }
         NSLog(@"Aim CW");
     }else if(playerCommand == TankzPlayerCommandFire){
