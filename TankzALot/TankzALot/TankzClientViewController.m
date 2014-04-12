@@ -35,6 +35,41 @@
     self.gameServer = [[TankzGameServer alloc] init];
     // gameServer interaction goes here.
     
+    // for now, we'll create a fake gamestate and update once.
+    TankzGameState* phonyGameState = [[TankzGameState alloc] init];
+    
+    NSMutableArray *phonyPlayerList = [[NSMutableArray alloc] init];
+    
+    TankzPlayer* phonyPlayer1 = [[TankzPlayer alloc] init];
+    
+    phonyPlayer1.name = @"Player1";
+    
+    phonyPlayer1.playerID = 0;
+    
+    phonyPlayer1.color = [SKColor orangeColor];
+    
+    phonyPlayer1.position = CGPointMake(200,200);
+    
+    phonyPlayer1.turretPosition = 3;
+    
+    [phonyPlayerList addObject:phonyPlayer1];
+    
+    TankzPlayer* phonyPlayer2 = [[TankzPlayer alloc] init];
+    
+    phonyPlayer2.name = @"Player2";
+    
+    phonyPlayer2.playerID = 1;
+    
+    phonyPlayer2.color = [SKColor blueColor];
+    
+    phonyPlayer2.position = CGPointMake(100,180);
+    
+    phonyPlayer2.turretPosition = 45;
+    
+    [phonyPlayerList addObject:phonyPlayer2];
+    
+    phonyGameState.playerList = phonyPlayerList;
+    
     self.view = [[SKView alloc] initWithFrame:self.view.frame];
     SKView *spriteView = (SKView *) self.view;
     
@@ -45,6 +80,11 @@
     TankzScene *scene = [[TankzScene alloc] initWithSize:spriteView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     [spriteView presentScene:scene];
+    
+    [scene initalizeToGameState:phonyGameState];
+    phonyPlayer2.turretPosition += 45;
+    [scene updateWithGameState:phonyGameState];
+
     
     // I guess here is where we go
     // while (TankzGameServer says it's not my turn)
