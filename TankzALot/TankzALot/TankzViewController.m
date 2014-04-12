@@ -21,10 +21,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    TankzGameServer* gameServer = [[TankzGameServer alloc] init];
-    
-    // gameServer interaction goes here.
+
 }
 
 - (void)didReceiveMemoryWarning
