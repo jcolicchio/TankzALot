@@ -21,6 +21,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -30,7 +31,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view = [[SKView alloc] initWithFrame:self.view.frame];
     SKView *spriteView = (SKView *) self.view;
+    
+    
     spriteView.showsDrawCount = YES;
     spriteView.showsNodeCount = YES;
     spriteView.showsFPS = YES;
