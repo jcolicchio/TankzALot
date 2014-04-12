@@ -10,9 +10,10 @@
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 @interface TankzViewController : UIViewController <MCNearbyServiceAdvertiserDelegate,MCSessionDelegate,MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelegate>
-
+//MCBrowserViewControllerDelegate
 @property BOOL isHost;
-@property BOOL isClient;
 @property BOOL onWaitScreenClient;
+@property (strong,nonatomic) MCPeerID * host;
+
 
 @end
