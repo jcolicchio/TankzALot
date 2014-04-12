@@ -96,11 +96,13 @@
 
     [self.session disconnect];
     
-    TankzViewController *tankzVC = (TankzViewController *)[self presentingViewController];
-    tankzVC.isHost = NO;
-    tankzVC.onWaitScreenClient = NO;
-    
-    [self  dismissViewControllerAnimated:YES completion:nil];
+//    TankzViewController *tankzVC = (TankzViewController *)[self presentingViewController];
+//    tankzVC.isHost = NO;
+//    tankzVC.onWaitScreenClient = NO;
+    dispatch_async(dispatch_get_main_queue(),^{
+        [((TankzViewController *) self.presentingViewController) resetSession];
+        [self  dismissViewControllerAnimated:YES completion:nil];
+    });
     
 }
 
@@ -111,7 +113,7 @@
 }
 
 -(void)userChange:(NSArray *) connectedUsers {
-    [self.tableView reloadData];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     
     NSLog(@"YO WE GOT A CALLBACK");
 }

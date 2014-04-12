@@ -18,6 +18,18 @@
 
 @implementation TankzGameServer
 
+
+
+//setPlayerNumber
+//set host to 0
+
+
+
+
+-(void) setPlayerID :(int) playerID {
+    self.viewController.my_player_id = playerID;
+}
+
 -(id)initWithViewController:(TankzClientViewController*)vc{
     if(self = [super init]){
         self.gameState = [[TankzGameState alloc]init];
@@ -64,10 +76,13 @@
 
 
 
-
 -(TankzGameState*)getGameState{
     return self.gameState;
     
+}
+
+-(void) setGameState:(TankzGameState *) state {
+    _gameState = state;
 }
 
 -(void)sendPlayerCommand:(TankzPlayerCommand)playerCommand andPlayerID:(int)playerID{
@@ -151,6 +166,8 @@
     
     [self.viewController updateWithGameState:[self getGameState]];
     
+    //update game states here
+    //end turn
 }
 
 /*
