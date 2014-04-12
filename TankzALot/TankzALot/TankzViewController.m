@@ -21,6 +21,8 @@
 @property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
 @property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
+@property (strong,nonatomic) MCPeerID * host;
+
 
 //Joiner's view
 //@property (nonatomic, strong) MCAdvertiserAssistant *games_list;
@@ -54,6 +56,12 @@ static NSString * const XXServiceType = @"TankzALot";
 }
 
 -(void)advertise {
+    
+    if(self.session)
+        [self.session disconnect];
+    if(self.host)
+        self.host = nil;
+    
     self.isHost = YES;
     
     self.advertiser =
@@ -175,8 +183,6 @@ static NSString * const XXServiceType = @"TankzALot";
     NSLog(@"broswer view controller was canceled");
     [self.browser stopBrowsingForPeers];
     [self.browserVC dismissViewControllerAnimated:YES completion:nil];
-    
-    
 }
 
 -(void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error {
@@ -197,24 +203,19 @@ static NSString * const XXServiceType = @"TankzALot";
 }
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
-//    NSDictionary * dict = @{@"peerID": peerID,
-//                           @"state" : [NSNumber numberWithInt:state]
-//                           };
-    
     if(self.isClient && self.onWaitScreenClient) {
         [self.waitingVC userChange:session.connectedPeers];
     }
     
     if(self.isClient && !self.onWaitScreenClient) {
+        self.host = peerID;
         self.onWaitScreenClient = YES;
         
         [self.browser stopBrowsingForPeers];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.browserVC dismissViewControllerAnimated:YES completion:^{
-                self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost];
-                [self presentViewController:self.waitingVC animated:YES completion:^{
-                    [self.waitingVC userChange:session.connectedPeers]; //Call with the current connected peers(just the one dude);
-                }];
+                self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost ];
+                [self presentViewController:self.waitingVC animated:YES completion:nil];
             }];
         });
         
