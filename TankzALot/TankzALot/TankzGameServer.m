@@ -8,6 +8,20 @@
 
 #import "TankzGameServer.h"
 
+@interface TankzGameServer ()
+
+@property (strong,nonatomic) TankzGameState *currentState;
+@property (strong,nonatomic) TankzGameState *nextState;
+
+@end
+
 @implementation TankzGameServer
+
+
+
+-(TankzGameState*)getGameState{
+    return self.currentState;
+    
+}
 
 @end
