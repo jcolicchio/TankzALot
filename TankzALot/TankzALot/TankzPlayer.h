@@ -11,9 +11,12 @@
 @interface TankzPlayer : NSObject
 
 @property (strong, nonatomic) NSString *name;
+@property (nonatomic) int playerID;
 @property (strong, nonatomic) UIColor *color;
 @property (nonatomic) int health;
+@property (nonatomic) int turretPosition;
 @property (nonatomic) CGPoint position;
 @property (nonatomic) int fuel;
+@property (nonatomic) int power;
 
 @end
