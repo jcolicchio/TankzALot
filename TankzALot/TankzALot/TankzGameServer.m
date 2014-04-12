@@ -112,7 +112,7 @@
         
     }
     
-    
+    [self.viewController updateWithGameState:[self getGameState]];
     
 }
 
