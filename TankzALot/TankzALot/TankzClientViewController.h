@@ -7,10 +7,17 @@
 //
 
 #import "TankzGameServer.h"
+#import "TankzScene.h"
 #import <UIKit/UIKit.h>
 
 @interface TankzClientViewController : UIViewController
 
 @property (strong, nonatomic) TankzGameServer *gameServer;
+
+@property (nonatomic) int my_player_id;
+
+@property (nonatomic, strong) TankzScene *scene;
+
+-(void) updateWithGameState:(TankzGameState*)gameState;
 
 @end
