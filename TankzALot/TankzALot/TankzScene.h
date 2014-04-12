@@ -10,4 +10,10 @@
 
 @interface TankzScene : SKScene
 
+@property int playerCount;
+
+
+- (id) initWithSize:(CGSize)size andPlayerCount:(int)count;
+
+
 @end
