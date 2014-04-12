@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import "TankzWaitingViewController.h"
 
-@interface TankzViewController : UIViewController <MCNearbyServiceAdvertiserDelegate,MCSessionDelegate,MCNearbyServiceBrowserDelegate, MCBrowserViewControllerDelegate>
+
+@interface TankzViewController : UIViewController <MCNearbyServiceAdvertiserDelegate,MCSessionDelegate,MCNearbyServiceBrowserDelegate   >
 //MCBrowserViewControllerDelegate
 @property BOOL isHost;
 @property BOOL onWaitScreenClient;
 @property (strong,nonatomic) MCPeerID * host;
+@property (strong,nonatomic) TankzWaitingViewController * waitingVC;
+
+-(void) resetSession;
 
 
 @end
