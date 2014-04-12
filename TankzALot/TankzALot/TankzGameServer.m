@@ -17,8 +17,10 @@
 @implementation TankzGameServer
 
 -(id)init{
-    if(self = [super init])
+    if(self = [super init]){
         self.gravity=10;
+        self.gameState.turn=0;
+    }
     return self;
 }
 
@@ -46,6 +48,7 @@
             playerState.fuel = playerFuel-1;
             
         }
+        NSLog(@"Move Right");
         
     }else if(playerCommand == TankzPlayerCommandMoveRight){
         
@@ -56,16 +59,18 @@
             playerState.fuel = playerFuel-1;
             
         }
+        NSLog(@"Move Right");
         
     }else if(playerCommand == TankzPlayerCommandAimCCW){
         if (playerState.turretPosition>180){
             playerState.turretPosition++;
         }
-        
+        NSLog(@"Aim CCW");
     }else if(playerCommand == TankzPlayerCommandAimCW){
         if(playerState.turretPosition<0){
             playerState.turretPosition--;
         }
+        NSLog(@"Aim CW");
     }else if(playerCommand == TankzPlayerCommandFire){
         
         int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
@@ -76,7 +81,7 @@
         int distance = timeTraveled*horizComponent;
         
         //check if shot direction is left or right
-        CGPoint bombsite = CGPointMake(playerState.position.x-distance, playerState.position.y);
+        CGPoint bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
         
         //check if any players are within range of the bullet
         //deal damage to players within range of bullet
@@ -100,6 +105,8 @@
             if (self.gameState.turn >= numPlayers)
                 self.gameState.turn=0;
         }
+        
+        NSLog(@"Shots Fired!");
         
     }
     
