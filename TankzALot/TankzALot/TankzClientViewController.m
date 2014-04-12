@@ -163,7 +163,7 @@
     [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
 }
 
-- (void) initalizeToGameState:(TankzGameState *)gameState
+- (void) initializeToGameState:(TankzGameState *)gameState
 {
     [self.scene initalizeToGameState:gameState];
 }
