@@ -21,6 +21,10 @@
 		84069ED218F91982009F74A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB418F91982009F74A7 /* UIKit.framework */; };
 		84069EDA18F91982009F74A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84069ED818F91982009F74A7 /* InfoPlist.strings */; };
 		84069EDC18F91982009F74A7 /* TankzALotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EDB18F91982009F74A7 /* TankzALotTests.m */; };
+		84069EE618F919C6009F74A7 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EE518F919C6009F74A7 /* SpriteKit.framework */; };
+		84069EE818F919CA009F74A7 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */; };
+		84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EEA18F91A68009F74A7 /* TankzClientViewController.m */; };
+		84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EED18F91B24009F74A7 /* TankzScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,12 @@
 		84069ED718F91982009F74A7 /* TankzALotTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TankzALotTests-Info.plist"; sourceTree = "<group>"; };
 		84069ED918F91982009F74A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84069EDB18F91982009F74A7 /* TankzALotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TankzALotTests.m; sourceTree = "<group>"; };
+		84069EE518F919C6009F74A7 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
+		84069EE918F91A68009F74A7 /* TankzClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzClientViewController.h; sourceTree = "<group>"; };
+		84069EEA18F91A68009F74A7 /* TankzClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzClientViewController.m; sourceTree = "<group>"; };
+		84069EEC18F91B24009F74A7 /* TankzScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzScene.h; sourceTree = "<group>"; };
+		84069EED18F91B24009F74A7 /* TankzScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84069EE818F919CA009F74A7 /* MultipeerConnectivity.framework in Frameworks */,
+				84069EE618F919C6009F74A7 /* SpriteKit.framework in Frameworks */,
 				84069EB318F91982009F74A7 /* CoreGraphics.framework in Frameworks */,
 				84069EB518F91982009F74A7 /* UIKit.framework in Frameworks */,
 				84069EB118F91982009F74A7 /* Foundation.framework in Frameworks */,
@@ -101,6 +113,8 @@
 		84069EAF18F91982009F74A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */,
+				84069EE518F919C6009F74A7 /* SpriteKit.framework */,
 				84069EB018F91982009F74A7 /* Foundation.framework */,
 				84069EB218F91982009F74A7 /* CoreGraphics.framework */,
 				84069EB418F91982009F74A7 /* UIKit.framework */,
@@ -117,6 +131,10 @@
 				84069EC218F91982009F74A7 /* Main.storyboard */,
 				84069EC518F91982009F74A7 /* TankzViewController.h */,
 				84069EC618F91982009F74A7 /* TankzViewController.m */,
+				84069EE918F91A68009F74A7 /* TankzClientViewController.h */,
+				84069EEA18F91A68009F74A7 /* TankzClientViewController.m */,
+				84069EEC18F91B24009F74A7 /* TankzScene.h */,
+				84069EED18F91B24009F74A7 /* TankzScene.m */,
 				84069EC818F91982009F74A7 /* Images.xcassets */,
 				84069EB718F91982009F74A7 /* Supporting Files */,
 			);
@@ -250,6 +268,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */,
+				84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */,
 				84069EBD18F91982009F74A7 /* main.m in Sources */,
 				84069EC118F91982009F74A7 /* TankzAppDelegate.m in Sources */,
 				84069EC718F91982009F74A7 /* TankzViewController.m in Sources */,
