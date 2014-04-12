@@ -8,6 +8,7 @@
 
 #import "TankzGameServer.h"
 #import "TankzClientViewController.h"
+#import <SpriteKit/SpriteKit.h>
 
 @interface TankzGameServer ()
 
@@ -19,9 +20,14 @@
 
 -(id)initWithViewController:(TankzClientViewController*)vc{
     if(self = [super init]){
+        self.gameState = [[TankzGameState alloc]init];
         self.gravity=10;
+        self.height = 200;
         self.gameState.turn=0;
+        self.viewController = vc;
+        self.gameState.playingState = 0;
         //initialize game with number of players
+        self.gameState.playerList = [[NSMutableArray alloc]init];
         [self startGame:2];
     }
     return self;
@@ -32,6 +38,7 @@
     player1.playerID = 0;
     player1.position = CGPointMake(200,200);
     player1.turretPosition = 0;
+    player1.color = [SKColor orangeColor];
     player1.health = 100;
     player1.fuel = 100;
     player1.power = 50;
@@ -40,9 +47,10 @@
     
     TankzPlayer* player2 = [[TankzPlayer alloc] init];
     player2.name = @"Player2";
-    player2.playerID = 0;
+    player2.playerID = 1;
     player2.position = CGPointMake(100,200);
     player2.turretPosition = 0;
+    player2.color = [SKColor blueColor];
     player2.health = 100;
     player2.fuel = 100;
     player2.power = 50;
@@ -93,13 +101,13 @@
         NSLog(@"Move Right");
         
     }else if(playerCommand == TankzPlayerCommandAimCCW){
-        if (playerState.turretPosition>180){
-            playerState.turretPosition++;
+        if (playerState.turretPosition<180){
+            playerState.turretPosition+=5;
         }
         NSLog(@"Aim CCW");
     }else if(playerCommand == TankzPlayerCommandAimCW){
-        if(playerState.turretPosition<0){
-            playerState.turretPosition--;
+        if(playerState.turretPosition>0){
+            playerState.turretPosition-=5;
         }
         NSLog(@"Aim CW");
     }else if(playerCommand == TankzPlayerCommandFire){
@@ -107,7 +115,7 @@
         int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
         int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
         
-        float timeTraveled = 2*playerState.power/self.gravity;
+        float timeTraveled = 2*(vertComponent)/self.gravity;
         
         int distance = timeTraveled*horizComponent;
         

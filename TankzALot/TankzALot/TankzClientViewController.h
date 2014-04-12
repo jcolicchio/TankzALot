@@ -18,7 +18,9 @@
 
 @property (nonatomic, strong) TankzScene *scene;
 
-- (void) initalizeToGameState:(TankzGameState *)gameState;
+@property (nonatomic) bool animation_engaged;
+
+@property (nonatomic) dispatch_source_t _timer;
 
 - (void) updateWithGameState:(TankzGameState*)gameState;
 
