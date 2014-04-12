@@ -47,6 +47,8 @@
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
         
+        [self makeTerrain];
+        
         SKSpriteNode* tank =
         [self newTankwithId:player.playerID withColor:player.color withPosition:player.position];
         
@@ -143,9 +145,19 @@
     [gun runAction:[SKAction rotateToAngle:rad duration:3.0]];
 }
 
+// how
+// maybe just like a straight line for now
 - (void) makeTerrain
 {
+    NSLog(@"Is this actually getting called?");
     
+    SKShapeNode *ground = [[SKShapeNode alloc] init];
+    CGMutablePathRef pathToDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathToDraw, NULL, 0, 100);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, 100);
+    ground.path = pathToDraw;
+    [ground setStrokeColor:[SKColor orangeColor]];
+    [self addChild:ground];
 }
 
 @end
