@@ -25,7 +25,7 @@
         self.viewController = vc;
         //initialize game with number of players
         [self startGame:2];
-        [TankzClientViewController ];
+        [self.viewController initializeToGameState:_gameState];
     }
     return self;
 }
@@ -112,7 +112,7 @@
         int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
         int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
         
-        float timeTraveled = 2*playerState.power/self.gravity;
+        float timeTraveled = 2*(vertComponent)/self.gravity;
         
         int distance = timeTraveled*horizComponent;
         
