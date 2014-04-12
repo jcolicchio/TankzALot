@@ -278,6 +278,7 @@
 			files = (
 				FE78822318F933340030FE7E /* TankzGameState.m in Sources */,
 				84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */,
+				84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */,
 				84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */,
 				84069EBD18F91982009F74A7 /* main.m in Sources */,
 				84069EC118F91982009F74A7 /* TankzAppDelegate.m in Sources */,
