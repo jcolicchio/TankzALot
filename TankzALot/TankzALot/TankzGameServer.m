@@ -158,6 +158,7 @@
         }else if(playerCommand == TankzPlayerCommandFire){
             
             self.gameState.playingState = TankzPlayingStateFiring;
+            self.gameState.shooter = playerID;
             
             //int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
             //int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
@@ -172,9 +173,10 @@
             float velocity_y = pow * sin(rad);
             NSLog(@"velocity_y_0: %f", velocity_y);
             float position_x = playerState.position.x;
-            float position_y = playerState.position.y;
+            float position_y = playerState.position.y + 10;
             
-            NSMutableArray *actions = [[NSMutableArray alloc] init];
+            NSLog(@"position: %f, %f", position_x, position_y);
+            
             int i = 0;
             while( true ){
                 // each iteration represents one time unit
@@ -201,7 +203,7 @@
                         int b = (player.position.y - position_y);
                         int c = sqrt(a*a+b*b);
                         
-                        if( c < 15) {
+                        if( c < 30) {
                             //DIRECT HIT!
                             hit = true;
                             player.health -= 50;
