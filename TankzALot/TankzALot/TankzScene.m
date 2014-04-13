@@ -47,7 +47,7 @@
     
     NSLog(@"Scene's initialize is getting called.");
     
-    [self makeTerrain];
+    [self makeTerrainwithHeight:GameState];
     
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
@@ -152,14 +152,14 @@
 
 // how
 // maybe just like a straight line for now
-- (void) makeTerrain
+- (void) makeTerrainatHeight:(int)height
 {
     NSLog(@"Is this actually getting called?");
     
     SKShapeNode *ground = [[SKShapeNode alloc] init];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, 0, 100);
-    CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, 100);
+    CGPathMoveToPoint(pathToDraw, NULL, 0, height);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, height);
     ground.path = pathToDraw;
     [ground setStrokeColor:[SKColor orangeColor]];
     [self addChild:ground];
