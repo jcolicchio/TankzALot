@@ -117,6 +117,7 @@
         if(playerID != self.gameState.turn){
             return;
         }
+        self.gameState.playingState = TankzPlayingStateRunning;
         TankzPlayer *playerState = ((TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID]);
         
         //attempt to do the action
@@ -152,6 +153,8 @@
             }
             NSLog(@"Aim CW");
         }else if(playerCommand == TankzPlayerCommandFire){
+            
+            self.gameState.playingState = TankzPlayingStateFiring;
             
             int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
             int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
