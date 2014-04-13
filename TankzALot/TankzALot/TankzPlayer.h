@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TankzPlayer : NSObject
+@interface TankzPlayer : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *name;
 @property (nonatomic) int playerID;
