@@ -47,7 +47,7 @@
     
     NSLog(@"Scene's initialize is getting called.");
     
-    [self makeTerrain];
+    [self makeTerrainatHeight:GameState.height];
     
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
@@ -152,14 +152,14 @@
 
 // how
 // maybe just like a straight line for now
-- (void) makeTerrain
+- (void) makeTerrainatHeight:(int)height
 {
     NSLog(@"Is this actually getting called?");
     
     SKShapeNode *ground = [[SKShapeNode alloc] init];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, 0, 100);
-    CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, 100);
+    CGPathMoveToPoint(pathToDraw, NULL, 0, height);
+    CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, height);
     ground.path = pathToDraw;
     [ground setStrokeColor:[SKColor orangeColor]];
     [self addChild:ground];
@@ -171,13 +171,41 @@
     
     SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
     
-    [gun addChild:roundHEAT];
+    [self addChild:roundHEAT];
+    
+    //roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
+    
+    roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
+    
+    //[gun addChild:roundHEAT];
     
     CGMutablePathRef projectilePath = CGPathCreateMutable();
 
-    CGPoint start = CGPointMake(gun.size.width,0);
+    CGPoint start = CGPointMake(roundHEAT.position.x + gun.size.width/2,roundHEAT.position.y);
     
     CGPathMoveToPoint(projectilePath, nil, start.x, start.y);
+    
+    float velocity_x = pow * cos(rad);
+    
+    float velocity_y = pow * sin(rad);
+    
+    float position_x = 0;
+    float position_y = 0;
+    
+    while( true ){
+        // each iteration represents one time unit
+        float timescale = 0.1;
+        position_x += velocity_x * timescale;
+        position_y += velocity_y * timescale;
+        velocity_y -= g * timescale;
+        
+        [roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+        
+        if(position_y < 0){
+            break;
+        }
+        
+    }/*
     
     int vertComponent = [self calculateVerticalComponent:pow andTurretPosition:rad];
     int horizComponent = [self calculateHorizontalComponent:pow andTurretPosition:rad];
@@ -196,6 +224,7 @@
 
     
     [roundHEAT runAction:projectileMotion];
+      */
     
     
 }
