@@ -10,6 +10,25 @@
 
 @implementation TankzGameState
 
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.playerList forKey:@"playerList"];
+    [aCoder encodeInt:self.turn forKey:@"turn"];
+    [aCoder encodeInt:self.gravity forKey:@"gravity"];
+    [aCoder encodeInt:self.height forKey:@"height"];
+    [aCoder encodeInt:self.playingState forKey:@"playingState"];
+}
+
+- (id) initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super init]) {
+        self.playerList = [aDecoder decodeObjectForKey:@"playerList"];
+        self.turn = [aDecoder decodeIntForKey:@"turn"];
+        self.gravity = [aDecoder decodeIntForKey:@"gravity"];
+        self.height = [aDecoder decodeIntForKey:@"height"];
+        self.playingState = [aDecoder decodeIntForKey:@"playingState"];
+    }
+    
+    return self;
+}
 
 -(TankzGameState*)copyGameState
 {

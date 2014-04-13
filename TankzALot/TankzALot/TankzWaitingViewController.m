@@ -22,6 +22,7 @@
 
 @implementation TankzWaitingViewController
 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.session.connectedPeers count];
 }
@@ -77,8 +78,6 @@
     [self.view addSubview:self.label];
     
     UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    
-    
     if(self.isHost)
         cancelButton.frame = CGRectMake(0, 22, self.view.frame.size.width/2, 38);
     else //Split the button in 2, one for cancel, for for okay
@@ -88,7 +87,44 @@
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [self.view addSubview:cancelButton];
 
+    
+    //Start game button
+    if(self.isHost) {
+        UIButton *startButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        startButton.frame = CGRectMake(self.view.frame.size.width/2, 22, self.view.frame.size.width/2, 38);
+        [startButton setBackgroundColor:[UIColor whiteColor]];
+        [startButton addTarget:self action:@selector(onStartButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [startButton setTitle:@"Start" forState:UIControlStateNormal];
+        [self.view addSubview:startButton];
+    }
+    
+    
     // Do any additional setup after loading the view.
+}
+
+-(void) onStartButtonClick {
+    
+  
+    NSError *error = nil;
+    NSLog(@"THERE IS A PROBLEM HERE");
+    NSLog(@"SIZE OF ARRAY %d",self.session.connectedPeers.count);
+    
+    for (int i = 0; i < self.session.connectedPeers.count; i++) {
+        NSString *message = [NSString stringWithFormat:@"%d", (i + 1)];
+        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+        if (![self.session sendData:data
+                            toPeers:@[[self.session.connectedPeers objectAtIndex:i]]
+                           withMode:MCSessionSendDataReliable
+                              error:&error]) {
+            NSLog(@"[Error] %@", error);
+        }
+    }
+    
+    //Tells host to call game as well
+    TankzViewController *view = (TankzViewController *)[self presentingViewController];
+    [view launchGame:0]; //host always gets the 0 player ID
+
+
 }
 
 -(void)onCancelButtonClick {
@@ -96,11 +132,10 @@
 
     [self.session disconnect];
     
-    TankzViewController *tankzVC = (TankzViewController *)[self presentingViewController];
-    tankzVC.isHost = NO;
-    tankzVC.onWaitScreenClient = NO;
-    
-    [self  dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(),^{
+        [((TankzViewController *) self.presentingViewController) resetSession];
+        [self  dismissViewControllerAnimated:YES completion:nil];
+    });
     
 }
 
@@ -111,7 +146,7 @@
 }
 
 -(void)userChange:(NSArray *) connectedUsers {
-    [self.tableView reloadData];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     
     NSLog(@"YO WE GOT A CALLBACK");
 }

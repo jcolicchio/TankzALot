@@ -15,7 +15,7 @@ typedef enum {
     TankzPlayingStateDone = 3
 }TankzPlayingState;
 
-@interface TankzGameState : NSObject
+@interface TankzGameState : NSObject <NSCoding>
 
 
 @property (strong,nonatomic) NSMutableArray *playerList;
