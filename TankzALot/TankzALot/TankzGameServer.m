@@ -177,7 +177,10 @@
                 if(c < 3){
                     player.health = player.health-50;
                 }
+               
             }
+            
+          
             
             //move turn to next player who isn't dead
             

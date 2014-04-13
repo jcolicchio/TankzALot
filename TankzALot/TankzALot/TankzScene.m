@@ -81,7 +81,23 @@
         SKSpriteNode* tank = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"%d",player.playerID]];
         
         
+      
+        
         if( tank ){
+            
+            //Update the health bar
+            int healthValue = player.health;
+            int length = (healthValue/100) * 60;
+            SKSpriteNode *healthBar =  (SKSpriteNode*) [tank childNodeWithName:@"healthBar"];
+            NSLog(@"HEALTH VALUE IS %d",healthValue);
+            NSLog(@"HEALTH BAR IS %d",length);
+
+            healthBar.size = CGSizeMake(length, 5);
+            if (healthValue < 50)
+                healthBar.color = [SKColor yellowColor];
+            if (healthValue < 25)
+                healthBar.color = [SKColor redColor];
+            
             
             if (player.health <= 0)
                 tank.hidden = YES;
@@ -109,12 +125,18 @@
     
     SKSpriteNode *hull = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(60, 15)];
     
+    SKSpriteNode *healthBar = [[SKSpriteNode alloc] initWithColor:[SKColor greenColor] size:CGSizeMake(60, 5)];
+                               
+    healthBar.position = CGPointMake(0, hull.size.height * 2);
+    healthBar.name = @"healthBar";
+    [hull addChild:healthBar];
+    
     hull.name = [NSString stringWithFormat:@"%d",playerId];
     
     hull.position = CGPointMake(Pos.x, Pos.y + hull.size.height/2 + treads.size.height/2);
     
     treads.position = CGPointMake(0, -hull.size.height/2 - treads.size.height/2);
-    
+                               
     [hull addChild:treads];
     
     SKSpriteNode *turret = [[SKSpriteNode alloc] initWithColor:Color size:CGSizeMake(40, 10)];
