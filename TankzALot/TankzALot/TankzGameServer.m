@@ -30,6 +30,7 @@
 - (void) session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
     //if we receive the game state
     
+    NSLog(@"got frame!");
     dispatch_async(dispatch_get_main_queue(), ^{
         NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         if([state isKindOfClass:[TankzGameState class]]) {
@@ -267,13 +268,16 @@
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:gameStateObject];
         
         //send data to all clients
-        NSError *error;
-        if (![self.session sendData:data
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error;
+            if (![self.session sendData:data
                                 toPeers:self.session.connectedPeers
                                withMode:MCSessionSendDataReliable
                                   error:&error]) {
-            NSLog(@"[Error] %@", error);
-        }
+                NSLog(@"[Error] %@", error);
+            }
+        });
+        
         //data should be transferable and unwrappable
         /*NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         if([state isKindOfClass:[TankzGameState class]]) {
