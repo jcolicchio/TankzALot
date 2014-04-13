@@ -213,39 +213,53 @@
 }
 
 - (void) pressUp {
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];
-    self.animation_engaged = TankzAimUp;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];
+        self.animation_engaged = TankzAimUp;
+    });
 }
 
 - (void) pressDown {
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];
-    self.animation_engaged = TankzAimDown;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];
+        self.animation_engaged = TankzAimDown;
+    });
 }
 
 - (void) pressLeft {
-
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];
-    self.animation_engaged = TankzMoveLeft;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];
+        self.animation_engaged = TankzMoveLeft;
+    });
 }
 
 - (void) pressRight {
     
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
-    self.animation_engaged = TankzMoveRight;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
+        self.animation_engaged = TankzMoveRight;
+    });
 }
 
 - (void) stopAnim{
     
-    self.animation_engaged = TankzStop;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.animation_engaged = TankzStop;
+    });
 }
 
 - (void) fire{
-    [self.gameServer sendPlayerCommand:TankzPlayerCommandFire andPlayerID:self.my_player_id];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.gameServer sendPlayerCommand:TankzPlayerCommandFire andPlayerID:self.my_player_id];
+    });
 }
 
 - (void) updateWithGameState:(TankzGameState *)gameState
 {
-     [self.scene updateWithGameState:gameState];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.scene updateWithGameState:gameState];
+    });
 }
 
 @end

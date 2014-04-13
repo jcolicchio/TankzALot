@@ -37,10 +37,11 @@
     return nameCell;
 }
 
--(id) initWithSession:(MCSession * ) session isHost:(BOOL)isHost {
+-(id) initWithSession:(MCSession * ) session isHost:(BOOL)isHost advertiser:(MCNearbyServiceAdvertiser *)advertiser {
     if(self = [super init]) {
         self.session = session;
         self.isHost = isHost;
+        self.advertiser = advertiser;
     }
     return self;
     
@@ -123,6 +124,8 @@
     //Tells host to call game as well
     TankzViewController *view = (TankzViewController *)[self presentingViewController];
     [view launchGame:0]; //host always gets the 0 player ID
+    
+    [self.advertiser stopAdvertisingPeer];
 
 
 }

@@ -13,5 +13,8 @@
 @interface TankzWaitingViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 -(void)userChange:(NSArray *) connectedUsers;
 
--(id) initWithSession:(MCSession * ) session isHost:(BOOL)isHost;
+-(id) initWithSession:(MCSession * ) session isHost:(BOOL)isHost advertiser:(MCNearbyServiceAdvertiser *)advertiser;
+
+@property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
+
 @end

@@ -38,7 +38,7 @@ static NSString * const XXServiceType = @"TankzALot";
     self.isHost = NO;
     [self.browser startBrowsingForPeers];
     
-    self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:self.session isHost:self.isHost];
+    self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:self.session isHost:self.isHost advertiser:self.advertiser];
     [self presentViewController:self.waitingVC animated:YES completion:nil];
     self.onWaitScreenClient = YES;
 
@@ -77,7 +77,7 @@ static NSString * const XXServiceType = @"TankzALot";
     self.advertiser.delegate = self;
     [self.advertiser startAdvertisingPeer];
     
-    self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:self.session isHost:self.isHost];
+    self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:self.session isHost:self.isHost advertiser:self.advertiser];
     [self presentViewController:self.waitingVC animated:YES completion:nil];
     self.onWaitScreenClient = YES;
 
@@ -226,7 +226,10 @@ static NSString * const XXServiceType = @"TankzALot";
         NSLog(@"THE VALUE OF MESSAGE IS %@", message);
         //Let the hunger games begin!
         self.session.delegate = nil;
+        [self.browser stopBrowsingForPeers];
+
         [self launchGame: player_number];
+    
         
     //}
 }
