@@ -93,7 +93,7 @@
             // now set the angle of the player's gun
             [self setGunArc:angle ofTank:tank];
          
-            if ( GameState.playingState == TankzPlayingStateFiring ){
+            if ( GameState.playingState == TankzPlayingStateFiring && GameState.turn != player.playerID){
                 [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity stopsAt:GameState.height];
             }
         }
@@ -197,23 +197,29 @@
     float position_x = roundHEAT.position.x;
     float position_y = roundHEAT.position.y;
     
+    NSMutableArray *actions = [[NSMutableArray alloc] init];
     while( true ){
         // each iteration represents one time unit
-        float timescale = 0.1;
+        float timescale = 0.5;
         position_x += velocity_x * timescale;
         position_y += velocity_y * timescale;
-        velocity_y -= g/3 * timescale;
+        velocity_y -= g * timescale;
         NSLog(@"%f", velocity_y);
         
-        [roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1
-                              ]];
+        //SKAction sequence:
+        //[roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
         
         if(position_y < terrain){
             break;
         }
         
+        [actions addObject:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+        
+        
+        
     }
     
+    [roundHEAT runAction:[SKAction sequence:@[[SKAction sequence:actions], [SKAction removeFromParent]]]];
 }
 
 -(float)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
