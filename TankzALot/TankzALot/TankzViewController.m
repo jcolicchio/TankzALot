@@ -153,24 +153,23 @@ static NSString * const XXServiceType = @"TankzALot";
     
 }
 
-
-//-(MCNearbyServiceBrowser *) initalizeServiceBrowserWithPeerID:(MCPeerID *)localPeerID andServiceType:(NSString *)serviceType {
-//    
-//    
-//    MCNearbyServiceBrowser *browser = [[MCNearbyServiceBrowser alloc] initWithPeer:localPeerID serviceType:serviceType];
-//    browser.delegate = self;
-//    return browser;
-//}
-
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)launchGame:(id)sender {
+    
     [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:0 andSession:self.session] animated:YES completion:nil];
+}
+
+-(void) launchGame {
+    
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
+            [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:0           andSession:self.session] animated:YES completion:nil];
+        }];
+    });
 }
 
 
@@ -179,10 +178,8 @@ static NSString * const XXServiceType = @"TankzALot";
     
 }
 -(void) browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info {
-    //NSLog(@"FOUND PEER");
-    //int timeInterval = 10000;
     NSLog(@"FOUND PEER %@", peerID.displayName);
-    [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:1000 ];
+    [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:1000];
     NSLog(@"SENT AN INVITATION");
 
 }
@@ -208,26 +205,29 @@ static NSString * const XXServiceType = @"TankzALot";
     NSLog(@" Session shit did start to recieve");
     
 }
--(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
-    NSLog(@" Session shit recieved data");
+
+- (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
+    NSLog(@"WE RECIEVED A MESSAGE");
+    NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", message);
     
+    //Start the game!
+    self.session.delegate = nil;
+    [self launchGame];
 }
+
 -(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
     NSLog(@" Session shit receive stream");
     
 }
+
+
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
     NSLog(@"isHost: %d onWaitScreenClient %d",self.isHost,self.onWaitScreenClient);
     NSLog(@"Peer %@ changed to state %@",peerID.displayName,[NSNumber numberWithInt:state]);
     NSLog(@"Number of peers: %d",self.session.connectedPeers.count);
     
-
-//    if(self.host && self.onWaitScreenClient) {
-//        
-//    }
-    
-    //If not on wait screen and you're not the host, the first person you conncet to is going to be the host
     if(!self.onWaitScreenClient && !self.isHost) {
         self.host = peerID;
     }
