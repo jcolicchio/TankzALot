@@ -206,16 +206,12 @@
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:gameStateObject];
         
         //send data to all clients
-        for (int i = 0; i < self.session.connectedPeers.count; i++) {
-            //NSString *message = [NSString stringWithFormat:@"%d", (i + 1)];
-            //NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-            NSError *error;
-            if (![self.session sendData:data
-                                toPeers:@[[self.session.connectedPeers objectAtIndex:i]]
+        NSError *error;
+        if (![self.session sendData:data
+                                toPeers:self.session.connectedPeers
                                withMode:MCSessionSendDataReliable
                                   error:&error]) {
-                NSLog(@"[Error] %@", error);
-            }
+            NSLog(@"[Error] %@", error);
         }
         //data should be transferable and unwrappable
         /*NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
