@@ -21,6 +21,7 @@ typedef enum {
 @property (strong,nonatomic) NSMutableArray *playerList;
 @property (nonatomic) int turn;
 @property (nonatomic) int gravity;
+@property (nonatomic) int height;
 @property (nonatomic) TankzPlayingState playingState;
 
 -(TankzGameState*)copyGameState;

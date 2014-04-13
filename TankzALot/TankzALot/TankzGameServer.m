@@ -22,7 +22,7 @@
     if(self = [super init]){
         self.gameState = [[TankzGameState alloc]init];
         self.gameState.gravity=10;
-        self.height = 200;
+        self.gameState.height = 200;
         self.gameState.turn=0;
         self.viewController = vc;
         self.gameState.playingState = 0;
