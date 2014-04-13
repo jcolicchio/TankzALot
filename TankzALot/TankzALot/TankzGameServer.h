@@ -23,7 +23,7 @@ typedef enum{
 
 @class TankzClientViewController;
 
-@interface TankzGameServer : NSObject
+@interface TankzGameServer : NSObject <MCSessionDelegate>
 
 @property (nonatomic, strong) TankzClientViewController *viewController;
 
