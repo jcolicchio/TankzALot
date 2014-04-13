@@ -163,7 +163,7 @@ static NSString * const XXServiceType = @"TankzALot";
     
     dispatch_async(dispatch_get_main_queue(),^{
         [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
-            [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:1           andSession:self.session] animated:YES completion:nil];
+            [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:playerID andSession:self.session] animated:YES completion:nil];
         }];
     });
 }
