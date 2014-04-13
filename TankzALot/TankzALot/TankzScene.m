@@ -164,6 +164,11 @@
     SKShapeNode *ground = [[SKShapeNode alloc] init];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     
+    NSValue *init = [height objectAtIndex:0];
+    CGPoint p = [init CGPointValue];
+    
+    CGPathMoveToPoint(pathToDraw, 0, p.x, p.y);
+    
     for(NSValue *wrapPoint in height){
         
         CGPoint point = [wrapPoint CGPointValue];
