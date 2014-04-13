@@ -125,8 +125,8 @@
     TankzViewController *view = (TankzViewController *)[self presentingViewController];
     [view launchGame:0]; //host always gets the 0 player ID
     
+    NSLog(@"stop advertising");
     [self.advertiser stopAdvertisingPeer];
-
 
 }
 

@@ -226,6 +226,7 @@ static NSString * const XXServiceType = @"TankzALot";
         NSLog(@"THE VALUE OF MESSAGE IS %@", message);
         //Let the hunger games begin!
         self.session.delegate = nil;
+        NSLog(@"stop browsing");
         [self.browser stopBrowsingForPeers];
 
         [self launchGame: player_number];

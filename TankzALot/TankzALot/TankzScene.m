@@ -95,7 +95,7 @@
             // now set the angle of the player's gun
             [self setGunArc:angle ofTank:tank];
          
-            if ( GameState.playingState == TankzPlayingStateFiring && GameState.turn != player.playerID){
+            if ( GameState.playingState == TankzPlayingStateFiring && GameState.shooter == player.playerID){
                 [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity stopsAt:GameState.height];
             }
         }
@@ -198,11 +198,13 @@
     //CGPathMoveToPoint(projectilePath, nil, start.x, start.y);
     
     float velocity_x = pow * cos(rad);
-    NSLog(@"velocity_x_0: %f", velocity_x);
+    NSLog(@"scene velocity_x_0: %f", velocity_x);
     float velocity_y = pow * sin(rad);
-    NSLog(@"velocity_y_0: %f", velocity_y);
+    NSLog(@"scene velocity_y_0: %f", velocity_y);
     float position_x = roundHEAT.position.x;
     float position_y = roundHEAT.position.y;
+    
+    NSLog(@"scene position: %f, %f", position_x, position_y);
     
     NSMutableArray *actions = [[NSMutableArray alloc] init];
     int i = 0;
@@ -212,7 +214,6 @@
         position_x += velocity_x * timescale;
         position_y += velocity_y * timescale;
         velocity_y -= g * timescale;
-        NSLog(@"%f", velocity_y);
         
         //SKAction sequence:
         //[roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
@@ -231,7 +232,7 @@
                 int b = (player.position.y - position_y);
                 int c = sqrt(a*a+b*b);
                 
-                if( c < 15) {
+                if( c < 30) {
                     //DIRECT HIT!
                     hit = true;
                     break;
