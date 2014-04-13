@@ -189,7 +189,7 @@
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
                                   
-        float timeoutInSeconds = 0.2;
+        float timeoutInSeconds = 0.1;
                                   
         dispatch_source_set_timer(self._timer, dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC), timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
         
