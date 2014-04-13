@@ -177,10 +177,6 @@
 {
     SKSpriteNode *roundHEAT = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(3,3)];
     
-    SKSpriteNode *hull = (SKSpriteNode*) [tank childNodeWithName:@"turret"];
-    
-    SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
-    
     [self addChild:roundHEAT];
     
     //roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);

@@ -213,93 +213,29 @@
 }
 
 - (void) pressUp {
-    /*
-    if (!self._timer) {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-        
-        float timeoutInSeconds = 0.1;
-        
-        dispatch_source_set_timer(
-                                  self._timer,
-                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
-                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
-        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];});
-    }
-    
-    dispatch_resume(self._timer);
-     */
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCCW andPlayerID:self.my_player_id];
     self.animation_engaged = TankzAimUp;
 }
 
 - (void) pressDown {
-    /*
-    if (!self._timer) {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-        
-        float timeoutInSeconds = 0.1;
-        
-        dispatch_source_set_timer(
-                                  self._timer,
-                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
-                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
-        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];});
-    }
-    
-    dispatch_resume(self._timer);
-     */
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandAimCW andPlayerID:self.my_player_id];
     self.animation_engaged = TankzAimDown;
 }
 
 - (void) pressLeft {
-    /*
-    if (!self._timer) {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-        
-        float timeoutInSeconds = 0.1;
-        
-        dispatch_source_set_timer(
-                                  self._timer,
-                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
-                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
-        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];});
-    }
-    
-    dispatch_resume(self._timer);
-     */
+
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveLeft andPlayerID:self.my_player_id];
     self.animation_engaged = TankzMoveLeft;
 }
 
 - (void) pressRight {
-    /*
-    if (!self._timer) {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        self._timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-        
-        float timeoutInSeconds = 0.1;
-        
-        dispatch_source_set_timer(
-                                  self._timer,
-                                  dispatch_time(DISPATCH_TIME_NOW,timeoutInSeconds * NSEC_PER_SEC),
-                                  timeoutInSeconds * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
-        dispatch_source_set_event_handler(self._timer, ^{[self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];});
-    }
     
-    dispatch_resume(self._timer);
-     */
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandMoveRight andPlayerID:self.my_player_id];
     self.animation_engaged = TankzMoveRight;
 }
 
 - (void) stopAnim{
-    /*
-    if(self._timer){
-        //dispatch_suspend(self._timer);
-        dispatch_source_cancel(self._timer);
-        self._timer = NULL;
-    }
-     */
+    
     self.animation_engaged = TankzStop;
 }
 
