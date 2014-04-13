@@ -203,7 +203,7 @@
                         int b = (player.position.y - position_y);
                         int c = sqrt(a*a+b*b);
                         
-                        if( c < 30) {
+                        if( c < 25) {
                             //DIRECT HIT!
                             hit = true;
                             player.health -= 50;
