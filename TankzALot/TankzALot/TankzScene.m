@@ -90,6 +90,7 @@
             // now set the angle of the player's gun
             [self setGunArc:angle ofTank:tank];
          
+            [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity];
         }
     }
 }
@@ -162,6 +163,48 @@
     ground.path = pathToDraw;
     [ground setStrokeColor:[SKColor orangeColor]];
     [self addChild:ground];
+}
+
+- (void) tankFires:(SKSpriteNode*)tank fromAngle:(float)rad withPower:(int)pow withGravity:(int)g
+{
+    SKSpriteNode *roundHEAT = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(3,3)];
+    
+    SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
+    
+    [gun addChild:roundHEAT];
+    
+    CGMutablePathRef projectilePath = CGPathCreateMutable();
+
+    CGPoint start = CGPointMake(gun.size.width,0);
+    
+    CGPathMoveToPoint(projectilePath, nil, start.x, start.y);
+    
+    int vertComponent = [self calculateVerticalComponent:pow andTurretPosition:rad];
+    int horizComponent = [self calculateHorizontalComponent:pow andTurretPosition:rad];
+    
+    float timeTraveled = 2*(vertComponent)/g;
+    
+    int distance = timeTraveled*horizComponent;
+    
+    CGPoint finish = CGPointMake(start.x + distance, start.y);
+    
+    // temp!
+    //CGPathAddCurveToPoint(projectilePath, 0, timeTraveled/3 * horizComponent, (2*vertComponent) / (3*g), 2 * timeTraveled/3, (4*vertComponent) / (3*g), finish.x, finish.y);
+    CGPathAddCurveToPoint(projectilePath, 0, 30, 60, 60, 60, finish.x, finish.y);
+    
+    SKAction * projectileMotion = [SKAction followPath:projectilePath duration:1.0];
+
+    
+    [roundHEAT runAction:projectileMotion];
+    
+    
+}
+
+-(int)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
+    return powerComponent * cos(turretPosition);
+}
+-(int)calculateVerticalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
+    return powerComponent * sin(turretPosition);
 }
 
 @end

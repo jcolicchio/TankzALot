@@ -93,7 +93,7 @@
             playerState.fuel = playerFuel-1;
             
         }
-        NSLog(@"Move Right");
+        NSLog(@"Move Left");
         
     }else if(playerCommand == TankzPlayerCommandMoveRight){
         
