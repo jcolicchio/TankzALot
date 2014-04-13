@@ -178,15 +178,24 @@
             
             //move turn to next player who isn't dead
             
-            int numPlayers = [self.gameState.playerList count];
-            TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID];
-            while (cycledPlayer.health < 0){
-                self.gameState.turn++;
-                if (self.gameState.turn >= numPlayers)
-                    self.gameState.turn=0;
+            int numPlayers = (int)[self.gameState.playerList count];
+            self.gameState.turn = (self.gameState.turn + 1) % numPlayers;
+            
+            TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:self.gameState.turn];
+            BOOL fullLoop = NO;
+            while (cycledPlayer.health <= 0 && !fullLoop){
+                self.gameState.turn = (self.gameState.turn + 1) % numPlayers;
+                cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:self.gameState.turn];
+                
+                if(self.gameState.turn == playerID) {
+                    fullLoop = YES;
+                    NSLog(@"WINNER");
+                }
             }
             
+            
             NSLog(@"Shots Fired!");
+            
             
         }
         
