@@ -10,16 +10,14 @@
 #import "TankzViewController.h"
 
 #import "TankzGameServer.h"
-#import "TankzWaitingViewController.h"
 
 @interface TankzViewController ()
 
 @property (strong,nonatomic) MCSession *session;
-@property (strong,nonatomic) MCBrowserViewController * browserVC;
+//@property (strong,nonatomic) MCBrowserViewController * browserVC;
 @property (strong,nonatomic) MCNearbyServiceBrowser * browser;
 @property (strong,nonatomic) MCPeerID *localPeerID;
 @property (strong,nonatomic) MCNearbyServiceAdvertiser *advertiser;
-@property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
 
 //Joiner's view
@@ -38,22 +36,28 @@ static NSString * const XXServiceType = @"TankzALot";
 
 -(void)showBrowse {
     self.isHost = NO;
+    [self.browser startBrowsingForPeers];
     
-    //Other way of doing it
-    self.browserVC = [[MCBrowserViewController alloc] initWithServiceType:XXServiceType session:self.session];
-    self.browserVC.delegate = self;
+    self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:self.session isHost:self.isHost];
+    [self presentViewController:self.waitingVC animated:YES completion:nil];
+    self.onWaitScreenClient = YES;
 
     
-//    [self presentViewController:self.browserVC
-//                       animated:YES
-//                     completion:
-//     ^{
-//         [self.browser startBrowsingForPeers];
-//     }];
-// 
-    
-    [self presentViewController:self.browserVC animated:YES completion:nil];
-    
+//    //Other way of doing it
+//    self.browserVC = [[MCBrowserViewController alloc] initWithServiceType:XXServiceType session:self.session];
+//    self.browserVC.delegate = self;
+//
+//    
+////    [self presentViewController:self.browserVC
+////                       animated:YES
+////                     completion:
+////     ^{
+////         [self.browser startBrowsingForPeers];
+////     }];
+//// 
+//    
+//    [self presentViewController:self.browserVC animated:YES completion:nil];
+//    
     NSLog(@"BROWSING");
     
 }
@@ -72,6 +76,11 @@ static NSString * const XXServiceType = @"TankzALot";
                                         serviceType:XXServiceType];
     self.advertiser.delegate = self;
     [self.advertiser startAdvertisingPeer];
+    
+    self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:self.session isHost:self.isHost];
+    [self presentViewController:self.waitingVC animated:YES completion:nil];
+    self.onWaitScreenClient = YES;
+
     
     NSLog(@"ADVERTISING");
 
@@ -108,8 +117,8 @@ static NSString * const XXServiceType = @"TankzALot";
     
     //Initalize Browser view
     
-//    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
-//    self.browser.delegate = self;
+    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.localPeerID serviceType:XXServiceType];
+    self.browser.delegate = self;
 
     //    self.browserVC =
     //    [[MCBrowserViewController alloc] initWithBrowser:self.browser
@@ -130,13 +139,13 @@ static NSString * const XXServiceType = @"TankzALot";
 }
 
 -(void)resetSession {
-    self.waitingVC = nil;
+    NSLog(@"REESETING SESSION");
+//    if(self.session)
+//        [self.session disconnect];
+//    self.waitingVC = nil;
     self.host = nil;
     self.isHost = NO;
     self.onWaitScreenClient = NO;
-
-    if(self.session)
-        [self.session disconnect];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -144,36 +153,29 @@ static NSString * const XXServiceType = @"TankzALot";
     
 }
 
-
--(MCNearbyServiceBrowser *) initalizeServiceBrowserWithPeerID:(MCPeerID *)localPeerID andServiceType:(NSString *)serviceType {
-    
-    
-    MCNearbyServiceBrowser *browser = [[MCNearbyServiceBrowser alloc] initWithPeer:localPeerID serviceType:serviceType];
-    browser.delegate = self;
-    return browser;
-}
-
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)launchGame:(id)sender {
-    [self presentViewController:[[TankzClientViewController alloc] init] animated:YES completion:nil];
+
+- (void) launchGame:(int)playerID {
+    
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
+            [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:playerID andSession:self.session] animated:YES completion:nil];
+        }];
+    });
 }
 
 
 -(void) browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID {
-    NSLog(@"PEER SHIT LOST PEER");
+    NSLog(@"LOST PEER %@", peerID.displayName);
     
 }
 -(void) browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info {
-    //NSLog(@"FOUND PEER");
-    //int timeInterval = 10000;
     NSLog(@"FOUND PEER %@", peerID.displayName);
-    [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:1000 ];
+    [self.browser invitePeer:peerID toSession:self.session withContext:nil timeout:1000];
     NSLog(@"SENT AN INVITATION");
 
 }
@@ -186,7 +188,7 @@ static NSString * const XXServiceType = @"TankzALot";
 -(void) browserViewControllerWasCancelled:(MCBrowserViewController *)browserViewController {
     NSLog(@"broswer view controller was canceled");
     [self.browser stopBrowsingForPeers];
-    [self.browserVC dismissViewControllerAnimated:YES completion:nil];
+    //[self.browserVC dismissViewControllerAnimated:YES completion:nil];
     
     [self resetSession];
 }
@@ -199,48 +201,93 @@ static NSString * const XXServiceType = @"TankzALot";
     NSLog(@" Session shit did start to recieve");
     
 }
--(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
-    NSLog(@" Session shit recieved data");
+
+- (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
     
+    //if the message is an id, we set the id
+    //if the message is a game state, we set the game state
+    
+    NSLog(@"WE RECIEVED A MESSAGE");
+    
+    /* example code ----
+    //data should be transferable and unwrappable
+    NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if([state isKindOfClass:[TankzGameState class]]) {
+        TankzGameState *newGameState = (TankzGameState *)state;
+        //NSLog(@"it works?");
+        //NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
+        
+    } else {*/
+        
+        NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        int player_number = [message intValue];
+        
+        NSLog(@"THE VALUE OF MESSAGE IS %@", message);
+        //Let the hunger games begin!
+        self.session.delegate = nil;
+        [self launchGame: player_number];
+        
+    //}
 }
+
 -(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
     NSLog(@" Session shit receive stream");
     
 }
+
+
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
     NSLog(@"isHost: %d onWaitScreenClient %d",self.isHost,self.onWaitScreenClient);
     NSLog(@"Peer %@ changed to state %@",peerID.displayName,[NSNumber numberWithInt:state]);
-    NSLog(@"Number of peers: %d",session.connectedPeers.count);
-    if(!self.isHost && self.onWaitScreenClient) {
-        [self.waitingVC userChange:session.connectedPeers];
+    NSLog(@"Number of peers: %d",self.session.connectedPeers.count);
+    
+    if(!self.onWaitScreenClient && !self.isHost) {
+        self.host = peerID;
     }
     
-    if([peerID.displayName isEqualToString:self.host.displayName] && state == 0 && !self.isHost) {
-        NSLog(@"state: %d displayname %@",state,peerID.displayName);
-
-        NSLog(@"HOST WENT DOWN, EXITING SCREEN");
-        if(self.browser)
-            [self.browser stopBrowsingForPeers];
-        if(self.waitingVC) {
-            NSLog(@"GONNA DELETE SOME WAITING VC");
+    if(self.onWaitScreenClient) {
+        [self.waitingVC userChange:self.session.connectedPeers];
+        NSLog(@"UPDATING USERCHANGE");
+    }
+    
+    //If the host disconnects, send everyone back to the main menu
+    if(self.session.connectedPeers.count == 0 && state == 0) {
+        NSLog(@"DISMISSING SCREEN");
+        dispatch_async(dispatch_get_main_queue(),^{
             [self.waitingVC dismissViewControllerAnimated:YES completion:^{
                 [self resetSession];
             }];
-        }
-    } else if(!self.isHost && !self.onWaitScreenClient) {
-        NSLog(@"NEW HOST IS: %@",peerID.displayName);
-        self.host = peerID;
-        self.onWaitScreenClient = YES;
-        [self.browser stopBrowsingForPeers];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.browserVC dismissViewControllerAnimated:YES completion:^{
-                self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost ];
-                [self presentViewController:self.waitingVC animated:YES completion:nil];
-            }];
         });
-        
     }
+    
+
+//    if([peerID.displayName isEqualToString:self.host.displayName] && state == 0 && !self.isHost) {
+//        NSLog(@"state: %d displayname %@",state,peerID.displayName);
+//
+//        NSLog(@"HOST WENT DOWN, EXITING SCREEN");
+//        if(self.browser)
+//            [self.browser stopBrowsingForPeers];
+//        if(self.waitingVC) {
+//            NSLog(@"GONNA DELETE SOME WAITING VC");
+//            [self.waitingVC dismissViewControllerAnimated:YES completion:^{
+//                [self resetSession];
+//            }];
+//        }
+//    } else if(!self.isHost && !self.onWaitScreenClient) {
+//        NSLog(@"NEW HOST IS: %@",peerID.displayName);
+//        self.host = peerID;
+//        self.onWaitScreenClient = YES;
+//        [self.browser stopBrowsingForPeers];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            BOOL test = YES;
+////            [self.browserVC dismissViewControllerAnimated:YES completion:^{
+////                self.waitingVC = [[TankzWaitingViewController alloc] initWithSession:session isHost:self.isHost ];
+////                [self presentViewController:self.waitingVC animated:YES completion:nil];
+////            }];
+//        });
+//        
+//    }
 }
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler {
