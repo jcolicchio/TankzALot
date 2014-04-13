@@ -17,6 +17,7 @@
     [aCoder encodeInt:self.gravity forKey:@"gravity"];
     [aCoder encodeInt:self.height forKey:@"height"];
     [aCoder encodeInt:self.playingState forKey:@"playingState"];
+    [aCoder encodeInt:self.winner forKey:@"winner"];
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder {
@@ -27,6 +28,7 @@
         self.gravity = [aDecoder decodeIntForKey:@"gravity"];
         self.height = [aDecoder decodeIntForKey:@"height"];
         self.playingState = [aDecoder decodeIntForKey:@"playingState"];
+        self.winner = [aDecoder decodeIntForKey:@"winner"];
     }
     
     return self;

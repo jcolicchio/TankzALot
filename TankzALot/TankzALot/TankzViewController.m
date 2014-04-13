@@ -98,18 +98,20 @@ static NSString * const XXServiceType = @"TankzALot";
     
     //Browse Button
     UIButton *browseButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    browseButton.frame = CGRectMake(0, 22, self.view.frame.size.width, 40.0);
-    [browseButton setBackgroundColor:[UIColor grayColor]];
+    browseButton.frame = CGRectMake(110, self.view.frame.size.height - 40.0 - 30.0, 100, 50.0);
+    [browseButton setBackgroundColor:[UIColor lightGrayColor]];
     [browseButton addTarget:self action:@selector(showBrowse) forControlEvents:UIControlEventTouchUpInside];
-    [browseButton setTitle:@"Browse" forState:UIControlStateNormal];
+    [browseButton setTitle:@"Join" forState:UIControlStateNormal];
+    [browseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:browseButton];
     
     //Advertise Button
     UIButton *advertiseButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    advertiseButton.frame = CGRectMake(0, 22 + browseButton.frame.size.height , self.view.frame.size.width, 40.0);
-    [advertiseButton setBackgroundColor:[UIColor grayColor]];
+    advertiseButton.frame = CGRectMake(110, self.view.frame.size.height - browseButton.frame.size.height - 40.0 - 30.0 - 30.0, 100, 50.0);
+    [advertiseButton setBackgroundColor:[UIColor lightGrayColor]];
     [advertiseButton addTarget:self action:@selector(advertise) forControlEvents:UIControlEventTouchUpInside];
-    [advertiseButton setTitle:@"Advertise" forState:UIControlStateNormal];
+    [advertiseButton setTitle:@"Host" forState:UIControlStateNormal];
+    [advertiseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:advertiseButton];
     
     

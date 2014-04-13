@@ -63,6 +63,7 @@
         self.gameState.playingState = 0;
         //initialize game with number of players
         self.gameState.playerList = [[NSMutableArray alloc]init];
+        self.gameState.winner = -1;
         [self startGame:2];
         
         session.delegate = self;
@@ -117,7 +118,7 @@
     
     @synchronized([TankzGameServer class]) {
         //validate to make sure it's their turn
-        if(playerID != self.gameState.turn){
+        if(playerID != self.gameState.turn || self.gameState.winner > -1){
             return;
         }
         self.gameState.playingState = TankzPlayingStateRunning;
@@ -254,6 +255,7 @@
                 if(self.gameState.turn == playerID) {
                     fullLoop = YES;
                     NSLog(@"WINNER");
+                    self.gameState.winner = playerID;
                 }
             }
             
