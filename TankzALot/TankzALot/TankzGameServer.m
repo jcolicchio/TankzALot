@@ -19,6 +19,35 @@
 
 @implementation TankzGameServer
 
+- (void) session:(MCSession *)session didStartReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID withProgress:(NSProgress *)progress {
+    
+}
+
+- (void) session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
+    
+}
+
+- (void) session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
+    //if we receive the game state
+    
+    NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if([state isKindOfClass:[TankzGameState class]]) {
+        NSLog(@"got state from guy!");
+        TankzGameState *newGameState = (TankzGameState *)state;
+        //NSLog(@"it works?");
+        //NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
+        [self setGameState:newGameState];
+    }
+}
+
+- (void) session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
+    
+}
+
+- (void) session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error {
+    
+}
+
 
 -(id)initWithViewController:(TankzClientViewController*)vc andSession:(MCSession *) session {
     if(self = [super init]){
@@ -32,6 +61,8 @@
         //initialize game with number of players
         self.gameState.playerList = [[NSMutableArray alloc]init];
         [self startGame:2];
+        
+        session.delegate = self;
     }
     return self;
 }
@@ -74,6 +105,9 @@
 
 -(void) setGameState:(TankzGameState *) state {
     _gameState = state;
+    [self.viewController updateWithGameState:state];
+    //now tell the UI to update
+    
 }
 
 -(void)sendPlayerCommand:(TankzPlayerCommand)playerCommand andPlayerID:(int)playerID{
@@ -162,13 +196,25 @@
         id <NSCoding> gameStateObject = [self getGameState];
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:gameStateObject];
         
+        //send data to all clients
+        for (int i = 0; i < self.session.connectedPeers.count; i++) {
+            //NSString *message = [NSString stringWithFormat:@"%d", (i + 1)];
+            //NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *error;
+            if (![self.session sendData:data
+                                toPeers:@[[self.session.connectedPeers objectAtIndex:i]]
+                               withMode:MCSessionSendDataReliable
+                                  error:&error]) {
+                NSLog(@"[Error] %@", error);
+            }
+        }
         //data should be transferable and unwrappable
-        NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        /*NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         if([state isKindOfClass:[TankzGameState class]]) {
             TankzGameState *newGameState = (TankzGameState *)state;
             NSLog(@"it works?");
             NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
-        }
+        }*/
         
         //end turn
     }
