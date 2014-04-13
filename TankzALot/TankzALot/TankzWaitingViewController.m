@@ -104,21 +104,25 @@
 
 -(void) onStartButtonClick {
     
-    NSString *message = @"Start your tanks!";
-    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+  
     NSError *error = nil;
     NSLog(@"THERE IS A PROBLEM HERE");
     NSLog(@"SIZE OF ARRAY %d",self.session.connectedPeers.count);
-    if (![self.session sendData:data
-                        toPeers:self.session.connectedPeers
-                       withMode:MCSessionSendDataReliable
-                          error:&error]) {
-        NSLog(@"[Error] %@", error);
+    
+    for (int i = 0; i < self.session.connectedPeers.count; i++) {
+        NSString *message = [NSString stringWithFormat:@"%d", (i + 1)];
+        NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+        if (![self.session sendData:data
+                            toPeers:@[[self.session.connectedPeers objectAtIndex:i]]
+                           withMode:MCSessionSendDataReliable
+                              error:&error]) {
+            NSLog(@"[Error] %@", error);
+        }
     }
     
     //Tells host to call game as well
     TankzViewController *view = (TankzViewController *)[self presentingViewController];
-    [view launchGame];
+    [view launchGame:0]; //host always gets the 0 player ID
 
 
 }

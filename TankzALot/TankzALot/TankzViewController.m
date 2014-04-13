@@ -158,16 +158,12 @@ static NSString * const XXServiceType = @"TankzALot";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)launchGame:(id)sender {
-    
-    [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:0 andSession:self.session] animated:YES completion:nil];
-}
 
--(void) launchGame {
+- (void) launchGame:(int)playerID {
     
     dispatch_async(dispatch_get_main_queue(),^{
         [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
-            [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:0           andSession:self.session] animated:YES completion:nil];
+            [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:1           andSession:self.session] animated:YES completion:nil];
         }];
     });
 }
@@ -209,11 +205,12 @@ static NSString * const XXServiceType = @"TankzALot";
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
     NSLog(@"WE RECIEVED A MESSAGE");
     NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", message);
+    int player_number = [message intValue];
     
-    //Start the game!
+    NSLog(@"THE VALUE OF MESSAGE IS %@", message);
+    //Let the hunger games begin!
     self.session.delegate = nil;
-    [self launchGame];
+    [self launchGame: player_number];
 }
 
 -(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {

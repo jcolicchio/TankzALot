@@ -19,7 +19,6 @@
 @property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
 - (void) resetSession;
-- (void)launchGame;
-
+- (void) launchGame:(int)playerID;
 
 @end
