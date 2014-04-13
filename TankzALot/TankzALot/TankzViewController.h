@@ -18,7 +18,8 @@
 @property (strong,nonatomic) MCPeerID * host;
 @property (strong,nonatomic) TankzWaitingViewController * waitingVC;
 
--(void) resetSession;
+- (void) resetSession;
+- (void)launchGame;
 
 
 @end
