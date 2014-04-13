@@ -93,7 +93,9 @@
             // now set the angle of the player's gun
             [self setGunArc:angle ofTank:tank];
          
-            [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity stopsAt:GameState.height];
+            if ( GameState.playingState == TankzPlayingStateFiring ){
+                [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity stopsAt:GameState.height];
+            }
         }
     }
 }
