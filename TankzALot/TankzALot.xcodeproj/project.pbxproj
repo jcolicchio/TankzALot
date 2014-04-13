@@ -1,0 +1,540 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		41F536B118F978B000A0F6D0 /* TankzWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F536B018F978B000A0F6D0 /* TankzWaitingViewController.m */; };
+		41F536B418F9806C00A0F6D0 /* NameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F536B318F9806C00A0F6D0 /* NameCell.m */; };
+		84069EB118F91982009F74A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB018F91982009F74A7 /* Foundation.framework */; };
+		84069EB318F91982009F74A7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB218F91982009F74A7 /* CoreGraphics.framework */; };
+		84069EB518F91982009F74A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB418F91982009F74A7 /* UIKit.framework */; };
+		84069EBB18F91982009F74A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84069EB918F91982009F74A7 /* InfoPlist.strings */; };
+		84069EBD18F91982009F74A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EBC18F91982009F74A7 /* main.m */; };
+		84069EC118F91982009F74A7 /* TankzAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC018F91982009F74A7 /* TankzAppDelegate.m */; };
+		84069EC418F91982009F74A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84069EC218F91982009F74A7 /* Main.storyboard */; };
+		84069EC718F91982009F74A7 /* TankzViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC618F91982009F74A7 /* TankzViewController.m */; };
+		84069EC918F91982009F74A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84069EC818F91982009F74A7 /* Images.xcassets */; };
+		84069ED018F91982009F74A7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069ECF18F91982009F74A7 /* XCTest.framework */; };
+		84069ED118F91982009F74A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB018F91982009F74A7 /* Foundation.framework */; };
+		84069ED218F91982009F74A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EB418F91982009F74A7 /* UIKit.framework */; };
+		84069EDA18F91982009F74A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84069ED818F91982009F74A7 /* InfoPlist.strings */; };
+		84069EDC18F91982009F74A7 /* TankzALotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EDB18F91982009F74A7 /* TankzALotTests.m */; };
+		84069EE618F919C6009F74A7 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EE518F919C6009F74A7 /* SpriteKit.framework */; };
+		84069EE818F919CA009F74A7 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */; };
+		84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EEA18F91A68009F74A7 /* TankzClientViewController.m */; };
+		84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EED18F91B24009F74A7 /* TankzScene.m */; };
+		849C585318FAAAB2004A1B2B /* tanksalot.png in Resources */ = {isa = PBXBuildFile; fileRef = 849C585218FAAAB2004A1B2B /* tanksalot.png */; };
+		849C585518FAAFA5004A1B2B /* tanksplash.png in Resources */ = {isa = PBXBuildFile; fileRef = 849C585418FAAFA5004A1B2B /* tanksplash.png */; };
+		84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA637A18F9267100DCAC3F /* TankzGameServer.m */; };
+		FE1D5A5E18F9541A000C7114 /* TankzPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1D5A5D18F9541A000C7114 /* TankzPlayer.m */; };
+		FE78822318F933340030FE7E /* TankzGameState.m in Sources */ = {isa = PBXBuildFile; fileRef = FE78822218F933340030FE7E /* TankzGameState.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84069ED318F91982009F74A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84069EA518F91982009F74A7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84069EAC18F91982009F74A7;
+			remoteInfo = TankzALot;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		41F536AF18F978B000A0F6D0 /* TankzWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzWaitingViewController.h; sourceTree = "<group>"; };
+		41F536B018F978B000A0F6D0 /* TankzWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzWaitingViewController.m; sourceTree = "<group>"; };
+		41F536B218F9806C00A0F6D0 /* NameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCell.h; sourceTree = "<group>"; };
+		41F536B318F9806C00A0F6D0 /* NameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCell.m; sourceTree = "<group>"; };
+		84069EAD18F91982009F74A7 /* TankzALot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TankzALot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84069EB018F91982009F74A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		84069EB218F91982009F74A7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		84069EB418F91982009F74A7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		84069EB818F91982009F74A7 /* TankzALot-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TankzALot-Info.plist"; sourceTree = "<group>"; };
+		84069EBA18F91982009F74A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84069EBC18F91982009F74A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		84069EBE18F91982009F74A7 /* TankzALot-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TankzALot-Prefix.pch"; sourceTree = "<group>"; };
+		84069EBF18F91982009F74A7 /* TankzAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TankzAppDelegate.h; sourceTree = "<group>"; };
+		84069EC018F91982009F74A7 /* TankzAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TankzAppDelegate.m; sourceTree = "<group>"; };
+		84069EC318F91982009F74A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		84069EC518F91982009F74A7 /* TankzViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TankzViewController.h; sourceTree = "<group>"; };
+		84069EC618F91982009F74A7 /* TankzViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TankzViewController.m; sourceTree = "<group>"; };
+		84069EC818F91982009F74A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		84069ECE18F91982009F74A7 /* TankzALotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TankzALotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84069ECF18F91982009F74A7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		84069ED718F91982009F74A7 /* TankzALotTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TankzALotTests-Info.plist"; sourceTree = "<group>"; };
+		84069ED918F91982009F74A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84069EDB18F91982009F74A7 /* TankzALotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TankzALotTests.m; sourceTree = "<group>"; };
+		84069EE518F919C6009F74A7 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
+		84069EE918F91A68009F74A7 /* TankzClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzClientViewController.h; sourceTree = "<group>"; };
+		84069EEA18F91A68009F74A7 /* TankzClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzClientViewController.m; sourceTree = "<group>"; };
+		84069EEC18F91B24009F74A7 /* TankzScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzScene.h; sourceTree = "<group>"; };
+		84069EED18F91B24009F74A7 /* TankzScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzScene.m; sourceTree = "<group>"; };
+		849C585218FAAAB2004A1B2B /* tanksalot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tanksalot.png; sourceTree = "<group>"; };
+		849C585418FAAFA5004A1B2B /* tanksplash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tanksplash.png; sourceTree = "<group>"; };
+		84CA637918F9267100DCAC3F /* TankzGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzGameServer.h; sourceTree = "<group>"; };
+		84CA637A18F9267100DCAC3F /* TankzGameServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzGameServer.m; sourceTree = "<group>"; };
+		FE1D5A5C18F9541A000C7114 /* TankzPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzPlayer.h; sourceTree = "<group>"; };
+		FE1D5A5D18F9541A000C7114 /* TankzPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzPlayer.m; sourceTree = "<group>"; };
+		FE78822118F933340030FE7E /* TankzGameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankzGameState.h; sourceTree = "<group>"; };
+		FE78822218F933340030FE7E /* TankzGameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankzGameState.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		84069EAA18F91982009F74A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84069EE818F919CA009F74A7 /* MultipeerConnectivity.framework in Frameworks */,
+				84069EE618F919C6009F74A7 /* SpriteKit.framework in Frameworks */,
+				84069EB318F91982009F74A7 /* CoreGraphics.framework in Frameworks */,
+				84069EB518F91982009F74A7 /* UIKit.framework in Frameworks */,
+				84069EB118F91982009F74A7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84069ECB18F91982009F74A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84069ED018F91982009F74A7 /* XCTest.framework in Frameworks */,
+				84069ED218F91982009F74A7 /* UIKit.framework in Frameworks */,
+				84069ED118F91982009F74A7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		84069EA418F91982009F74A7 = {
+			isa = PBXGroup;
+			children = (
+				84069EB618F91982009F74A7 /* TankzALot */,
+				84069ED518F91982009F74A7 /* TankzALotTests */,
+				84069EAF18F91982009F74A7 /* Frameworks */,
+				84069EAE18F91982009F74A7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		84069EAE18F91982009F74A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84069EAD18F91982009F74A7 /* TankzALot.app */,
+				84069ECE18F91982009F74A7 /* TankzALotTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84069EAF18F91982009F74A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84069EE718F919CA009F74A7 /* MultipeerConnectivity.framework */,
+				84069EE518F919C6009F74A7 /* SpriteKit.framework */,
+				84069EB018F91982009F74A7 /* Foundation.framework */,
+				84069EB218F91982009F74A7 /* CoreGraphics.framework */,
+				84069EB418F91982009F74A7 /* UIKit.framework */,
+				84069ECF18F91982009F74A7 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84069EB618F91982009F74A7 /* TankzALot */ = {
+			isa = PBXGroup;
+			children = (
+				849C585218FAAAB2004A1B2B /* tanksalot.png */,
+				849C585418FAAFA5004A1B2B /* tanksplash.png */,
+				FE1D5A5C18F9541A000C7114 /* TankzPlayer.h */,
+				FE1D5A5D18F9541A000C7114 /* TankzPlayer.m */,
+				84069EBF18F91982009F74A7 /* TankzAppDelegate.h */,
+				84069EC018F91982009F74A7 /* TankzAppDelegate.m */,
+				84069EC218F91982009F74A7 /* Main.storyboard */,
+				84069EC518F91982009F74A7 /* TankzViewController.h */,
+				84069EC618F91982009F74A7 /* TankzViewController.m */,
+				84069EE918F91A68009F74A7 /* TankzClientViewController.h */,
+				84069EEA18F91A68009F74A7 /* TankzClientViewController.m */,
+				84069EEC18F91B24009F74A7 /* TankzScene.h */,
+				84069EED18F91B24009F74A7 /* TankzScene.m */,
+				84CA637918F9267100DCAC3F /* TankzGameServer.h */,
+				84CA637A18F9267100DCAC3F /* TankzGameServer.m */,
+				FE78822118F933340030FE7E /* TankzGameState.h */,
+				FE78822218F933340030FE7E /* TankzGameState.m */,
+				41F536AF18F978B000A0F6D0 /* TankzWaitingViewController.h */,
+				41F536B018F978B000A0F6D0 /* TankzWaitingViewController.m */,
+				84069EC818F91982009F74A7 /* Images.xcassets */,
+				41F536B218F9806C00A0F6D0 /* NameCell.h */,
+				41F536B318F9806C00A0F6D0 /* NameCell.m */,
+				84069EB718F91982009F74A7 /* Supporting Files */,
+			);
+			path = TankzALot;
+			sourceTree = "<group>";
+		};
+		84069EB718F91982009F74A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84069EB818F91982009F74A7 /* TankzALot-Info.plist */,
+				84069EB918F91982009F74A7 /* InfoPlist.strings */,
+				84069EBC18F91982009F74A7 /* main.m */,
+				84069EBE18F91982009F74A7 /* TankzALot-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		84069ED518F91982009F74A7 /* TankzALotTests */ = {
+			isa = PBXGroup;
+			children = (
+				84069EDB18F91982009F74A7 /* TankzALotTests.m */,
+				84069ED618F91982009F74A7 /* Supporting Files */,
+			);
+			path = TankzALotTests;
+			sourceTree = "<group>";
+		};
+		84069ED618F91982009F74A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84069ED718F91982009F74A7 /* TankzALotTests-Info.plist */,
+				84069ED818F91982009F74A7 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		84069EAC18F91982009F74A7 /* TankzALot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84069EDF18F91982009F74A7 /* Build configuration list for PBXNativeTarget "TankzALot" */;
+			buildPhases = (
+				84069EA918F91982009F74A7 /* Sources */,
+				84069EAA18F91982009F74A7 /* Frameworks */,
+				84069EAB18F91982009F74A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TankzALot;
+			productName = TankzALot;
+			productReference = 84069EAD18F91982009F74A7 /* TankzALot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		84069ECD18F91982009F74A7 /* TankzALotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84069EE218F91982009F74A7 /* Build configuration list for PBXNativeTarget "TankzALotTests" */;
+			buildPhases = (
+				84069ECA18F91982009F74A7 /* Sources */,
+				84069ECB18F91982009F74A7 /* Frameworks */,
+				84069ECC18F91982009F74A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84069ED418F91982009F74A7 /* PBXTargetDependency */,
+			);
+			name = TankzALotTests;
+			productName = TankzALotTests;
+			productReference = 84069ECE18F91982009F74A7 /* TankzALotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		84069EA518F91982009F74A7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Tankz;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = LAHacks;
+				TargetAttributes = {
+					84069ECD18F91982009F74A7 = {
+						TestTargetID = 84069EAC18F91982009F74A7;
+					};
+				};
+			};
+			buildConfigurationList = 84069EA818F91982009F74A7 /* Build configuration list for PBXProject "TankzALot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 84069EA418F91982009F74A7;
+			productRefGroup = 84069EAE18F91982009F74A7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				84069EAC18F91982009F74A7 /* TankzALot */,
+				84069ECD18F91982009F74A7 /* TankzALotTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		84069EAB18F91982009F74A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84069EC918F91982009F74A7 /* Images.xcassets in Resources */,
+				849C585318FAAAB2004A1B2B /* tanksalot.png in Resources */,
+				84069EBB18F91982009F74A7 /* InfoPlist.strings in Resources */,
+				849C585518FAAFA5004A1B2B /* tanksplash.png in Resources */,
+				84069EC418F91982009F74A7 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84069ECC18F91982009F74A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84069EDA18F91982009F74A7 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		84069EA918F91982009F74A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE78822318F933340030FE7E /* TankzGameState.m in Sources */,
+				41F536B118F978B000A0F6D0 /* TankzWaitingViewController.m in Sources */,
+				84069EEB18F91A68009F74A7 /* TankzClientViewController.m in Sources */,
+				84CA637B18F9267100DCAC3F /* TankzGameServer.m in Sources */,
+				41F536B418F9806C00A0F6D0 /* NameCell.m in Sources */,
+				84069EEE18F91B24009F74A7 /* TankzScene.m in Sources */,
+				84069EBD18F91982009F74A7 /* main.m in Sources */,
+				FE1D5A5E18F9541A000C7114 /* TankzPlayer.m in Sources */,
+				84069EC118F91982009F74A7 /* TankzAppDelegate.m in Sources */,
+				84069EC718F91982009F74A7 /* TankzViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84069ECA18F91982009F74A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84069EDC18F91982009F74A7 /* TankzALotTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		84069ED418F91982009F74A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84069EAC18F91982009F74A7 /* TankzALot */;
+			targetProxy = 84069ED318F91982009F74A7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		84069EB918F91982009F74A7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84069EBA18F91982009F74A7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		84069EC218F91982009F74A7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84069EC318F91982009F74A7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		84069ED818F91982009F74A7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84069ED918F91982009F74A7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		84069EDD18F91982009F74A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		84069EDE18F91982009F74A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		84069EE018F91982009F74A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TankzALot/TankzALot-Prefix.pch";
+				INFOPLIST_FILE = "TankzALot/TankzALot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		84069EE118F91982009F74A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TankzALot/TankzALot-Prefix.pch";
+				INFOPLIST_FILE = "TankzALot/TankzALot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		84069EE318F91982009F74A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TankzALot.app/TankzALot";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TankzALot/TankzALot-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TankzALotTests/TankzALotTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		84069EE418F91982009F74A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TankzALot.app/TankzALot";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TankzALot/TankzALot-Prefix.pch";
+				INFOPLIST_FILE = "TankzALotTests/TankzALotTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		84069EA818F91982009F74A7 /* Build configuration list for PBXProject "TankzALot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84069EDD18F91982009F74A7 /* Debug */,
+				84069EDE18F91982009F74A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84069EDF18F91982009F74A7 /* Build configuration list for PBXNativeTarget "TankzALot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84069EE018F91982009F74A7 /* Debug */,
+				84069EE118F91982009F74A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84069EE218F91982009F74A7 /* Build configuration list for PBXNativeTarget "TankzALotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84069EE318F91982009F74A7 /* Debug */,
+				84069EE418F91982009F74A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 84069EA518F91982009F74A7 /* Project object */;
+}
