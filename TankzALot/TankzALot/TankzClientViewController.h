@@ -10,6 +10,15 @@
 #import "TankzScene.h"
 #import <UIKit/UIKit.h>
 
+//animation controller
+typedef enum{
+    TankzStop = 0,
+    TankzMoveLeft = 1,
+    TankzMoveRight = 2,
+    TankzAimDown = 3,
+    TankzAimUp = 4,
+} TankzMove;
+
 @interface TankzClientViewController : UIViewController
 
 @property (strong, nonatomic) TankzGameServer *gameServer;
@@ -18,7 +27,7 @@
 
 @property (nonatomic, strong) TankzScene *scene;
 
-@property (nonatomic) bool animation_engaged;
+@property (nonatomic) int animation_engaged;
 
 @property (nonatomic) dispatch_source_t _timer;
 
