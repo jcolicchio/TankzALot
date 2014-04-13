@@ -12,6 +12,8 @@
 
 @interface TankzScene ()
 @property BOOL contentCreated;
+
+@property (strong, nonatomic) TankzGameState *gameState;
 @end
 
 @implementation TankzScene
@@ -69,6 +71,7 @@
 // the scene to reflect the new gamestate
 - (void) updateWithGameState:(TankzGameState *)GameState
 {
+    self.gameState = GameState;
     
     // this is going to have to be changed for proper movement
     // for now this will go through the player array and draw
@@ -196,10 +199,6 @@
 {
     SKSpriteNode *roundHEAT = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(3,3)];
     
-    SKSpriteNode *hull = (SKSpriteNode*) [tank childNodeWithName:@"turret"];
-    
-    SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
-    
     [self addChild:roundHEAT];
     
     //roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
@@ -220,6 +219,7 @@
     float position_y = roundHEAT.position.y;
     
     NSMutableArray *actions = [[NSMutableArray alloc] init];
+    int i = 0;
     while( true ){
         // each iteration represents one time unit
         float timescale = 0.5;
@@ -235,11 +235,30 @@
             break;
         }
         
+        //[actions addObject:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+        //the bullet will be at position_x, position_y
+        //for each tank past frame 2, make sure
+        BOOL hit = false;
+        if(i > 2) {
+            for(TankzPlayer *player in self.gameState.playerList) {
+                int a = (player.position.x - position_x);
+                int b = (player.position.y - position_y);
+                int c = sqrt(a*a+b*b);
+                
+                if( c < 15) {
+                    //DIRECT HIT!
+                    hit = true;
+                    break;
+                }
+            }
+        }
+        if(hit)
+            break;
         [actions addObject:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
-        
-        
-        
+
+        i++;
     }
+    
     
     [roundHEAT runAction:[SKAction sequence:@[[SKAction sequence:actions], [SKAction removeFromParent]]]];
 }
