@@ -160,7 +160,10 @@
 {
     SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
 
-    [gun runAction:[SKAction rotateToAngle:rad duration:0.0]];
+    //rotation animation
+    //[gun runAction:[SKAction rotateToAngle:rad duration:0.0]];
+    
+    gun.zRotation = rad;
 }
 
 // how
