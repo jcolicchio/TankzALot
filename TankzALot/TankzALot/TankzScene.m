@@ -249,6 +249,9 @@
             //Update the health bar
             int healthValue = player.health;
             int length = (healthValue/100.0) * 60;
+            
+            SKSpriteNode* tank = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"%d",player.playerID]];
+            
             SKSpriteNode *healthBar =  (SKSpriteNode*) [tank childNodeWithName:@"healthBar"];
             NSLog(@"HEALTH VALUE IS %d",healthValue);
             NSLog(@"HEALTH BAR IS %d",length);
@@ -258,6 +261,9 @@
                 healthBar.color = [SKColor yellowColor];
             if (healthValue < 25)
                 healthBar.color = [SKColor redColor];
+            
+            if(healthValue <= 0)
+                [tank setHidden:YES];
         }
     }];
 }
