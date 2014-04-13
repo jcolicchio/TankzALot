@@ -47,7 +47,7 @@
     
     NSLog(@"Scene's initialize is getting called.");
     
-    [self makeTerrainwithHeight:GameState];
+    [self makeTerrainatHeight:GameState.height];
     
     NSMutableArray * playerList = GameState.playerList;
     for (TankzPlayer *player in playerList) {
