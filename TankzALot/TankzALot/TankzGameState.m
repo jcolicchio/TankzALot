@@ -14,7 +14,7 @@
     [aCoder encodeObject:self.playerList forKey:@"playerList"];
     [aCoder encodeInt:self.turn forKey:@"turn"];
     [aCoder encodeInt:self.gravity forKey:@"gravity"];
-    [aCoder encodeInt:self.height forKey:@"height"];
+    [aCoder encodeObject:self.height forKey:@"height"];
     [aCoder encodeInt:self.playingState forKey:@"playingState"];
 }
 
@@ -23,7 +23,7 @@
         self.playerList = [aDecoder decodeObjectForKey:@"playerList"];
         self.turn = [aDecoder decodeIntForKey:@"turn"];
         self.gravity = [aDecoder decodeIntForKey:@"gravity"];
-        self.height = [aDecoder decodeIntForKey:@"height"];
+        self.height = [aDecoder decodeObjectForKey:@"height"];
         self.playingState = [aDecoder decodeIntForKey:@"playingState"];
     }
     

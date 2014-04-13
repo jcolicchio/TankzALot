@@ -54,7 +54,14 @@
         self.session = session;
         self.gameState = [[TankzGameState alloc]init];
         self.gameState.gravity=10;
-        self.gameState.height = 200;
+        
+        CGPoint init_l = CGPointMake(0, 200);
+        [self.gameState.height addObject:[NSValue valueWithCGPoint:init_l]];
+        
+        CGPoint init_f = CGPointMake(320, 200);
+        [self.gameState.height addObject:[NSValue valueWithCGPoint:init_f]];
+       
+        
         self.gameState.turn=0;
         self.viewController = vc;
         self.gameState.playingState = 0;

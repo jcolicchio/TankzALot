@@ -155,16 +155,23 @@
     [gun runAction:[SKAction rotateToAngle:rad duration:0.0]];
 }
 
-// how
-// maybe just like a straight line for now
-- (void) makeTerrainatHeight:(int)height
+// takes an NSMutableArray of wrapped CGPoints
+// For now just draw lines between every point
+- (void) makeTerrainatHeight:(NSMutableArray*)height
 {
     NSLog(@"Is this actually getting called?");
     
     SKShapeNode *ground = [[SKShapeNode alloc] init];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, 0, height);
-    CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, height);
+    
+    for(NSValue *wrapPoint in height){
+        
+        CGPoint point = [wrapPoint CGPointValue];
+        CGPathAddLineToPoint(pathToDraw, NULL, point.x, point.y);
+    }
+    
+    //CGPathMoveToPoint(pathToDraw, NULL, 0, height);
+    //CGPathAddLineToPoint(pathToDraw, NULL, self.frame.size.width, height);
     ground.path = pathToDraw;
     [ground setStrokeColor:[SKColor orangeColor]];
     [self addChild:ground];
