@@ -274,7 +274,8 @@
         if(self.gameState.winner > -1) {
             //declare the winner!
             SKLabelNode *winner = [[SKLabelNode alloc] initWithFontNamed:@"Chalkduster"];
-            [winner setText:@"Game Over"];
+            [winner setText:@"Tankz For Playing!"];
+            [winner setFontSize:25.0];
             [winner setColor:[UIColor whiteColor]];
             [winner setPosition:CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMidY(self.view.frame))];
             [self addChild:winner];
