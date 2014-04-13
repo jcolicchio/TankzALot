@@ -171,13 +171,41 @@
     
     SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
     
-    [gun addChild:roundHEAT];
+    [self addChild:roundHEAT];
+    
+    //roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
+    
+    roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
+    
+    //[gun addChild:roundHEAT];
     
     CGMutablePathRef projectilePath = CGPathCreateMutable();
 
-    CGPoint start = CGPointMake(gun.size.width,0);
+    CGPoint start = CGPointMake(roundHEAT.position.x + gun.size.width/2,roundHEAT.position.y);
     
     CGPathMoveToPoint(projectilePath, nil, start.x, start.y);
+    
+    float velocity_x = pow * cos(rad);
+    
+    float velocity_y = pow * sin(rad);
+    
+    float position_x = 0;
+    float position_y = 0;
+    
+    while( true ){
+        // each iteration represents one time unit
+        float timescale = 0.1;
+        position_x += velocity_x * timescale;
+        position_y += velocity_y * timescale;
+        velocity_y -= g * timescale;
+        
+        [roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+        
+        if(position_y < 0){
+            break;
+        }
+        
+    }/*
     
     int vertComponent = [self calculateVerticalComponent:pow andTurretPosition:rad];
     int horizComponent = [self calculateHorizontalComponent:pow andTurretPosition:rad];
@@ -196,6 +224,7 @@
 
     
     [roundHEAT runAction:projectileMotion];
+      */
     
     
 }
