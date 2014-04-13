@@ -178,15 +178,24 @@
             
             //move turn to next player who isn't dead
             
-            int numPlayers = [self.gameState.playerList count];
-            TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID];
-            while (cycledPlayer.health < 0){
-                self.gameState.turn++;
-                if (self.gameState.turn >= numPlayers)
-                    self.gameState.turn=0;
+            int numPlayers = (int)[self.gameState.playerList count];
+            self.gameState.turn = (self.gameState.turn + 1) % numPlayers;
+            
+            TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:self.gameState.turn];
+            BOOL fullLoop = NO;
+            while (cycledPlayer.health <= 0 && !fullLoop){
+                self.gameState.turn = (self.gameState.turn + 1) % numPlayers;
+                cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:self.gameState.turn];
+                
+                if(self.gameState.turn == playerID) {
+                    fullLoop = YES;
+                    NSLog(@"WINNER");
+                }
             }
             
+            
             NSLog(@"Shots Fired!");
+            
             
         }
         
@@ -197,16 +206,12 @@
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:gameStateObject];
         
         //send data to all clients
-        for (int i = 0; i < self.session.connectedPeers.count; i++) {
-            //NSString *message = [NSString stringWithFormat:@"%d", (i + 1)];
-            //NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-            NSError *error;
-            if (![self.session sendData:data
-                                toPeers:@[[self.session.connectedPeers objectAtIndex:i]]
+        NSError *error;
+        if (![self.session sendData:data
+                                toPeers:self.session.connectedPeers
                                withMode:MCSessionSendDataReliable
                                   error:&error]) {
-                NSLog(@"[Error] %@", error);
-            }
+            NSLog(@"[Error] %@", error);
         }
         //data should be transferable and unwrappable
         /*NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
