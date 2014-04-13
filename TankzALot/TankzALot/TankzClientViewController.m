@@ -8,6 +8,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "TankzClientViewController.h"
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
+
 
 @interface TankzClientViewController ()
 
@@ -25,16 +27,23 @@
     return self;
 }
 
+-(id)initwithPlayerID:(int) playerID  andSession:(MCSession * ) session {
+    if(self) {
+        self.my_player_id = playerID;
+        self.gameServer = [[TankzGameServer alloc] initWithViewController:self andSession:session];
+
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
-    // temp
-    self.my_player_id = 0;
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     // Initialize the game server
-    self.gameServer = [[TankzGameServer alloc] initWithViewController:self];
     /*
     // for now, we'll create a fake gamestate and update once.
     TankzGameState* phonyGameState = [[TankzGameState alloc] init];

@@ -170,7 +170,7 @@ static NSString * const XXServiceType = @"TankzALot";
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)launchGame:(id)sender {
-    [self presentViewController:[[TankzClientViewController alloc] init] animated:YES completion:nil];
+    [self presentViewController:[[TankzClientViewController alloc] initwithPlayerID:0 andSession:self.session] animated:YES completion:nil];
 }
 
 

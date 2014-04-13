@@ -13,25 +13,16 @@
 @interface TankzGameServer ()
 
 @property (strong,nonatomic) TankzGameState *gameState;
+@property (strong,nonatomic) MCSession *session; // Pointer to the other users on the network
 
 @end
 
 @implementation TankzGameServer
 
 
-
-//setPlayerNumber
-//set host to 0
-
-
-
-
--(void) setPlayerID :(int) playerID {
-    self.viewController.my_player_id = playerID;
-}
-
--(id)initWithViewController:(TankzClientViewController*)vc{
+-(id)initWithViewController:(TankzClientViewController*)vc andSession:(MCSession *) session {
     if(self = [super init]){
+        self.session = session;
         self.gameState = [[TankzGameState alloc]init];
         self.gameState.gravity=10;
         self.height = 200;
@@ -166,7 +157,7 @@
     
     [self.viewController updateWithGameState:[self getGameState]];
     
-    //update game states here
+    //send out updated game state here
     //end turn
 }
 

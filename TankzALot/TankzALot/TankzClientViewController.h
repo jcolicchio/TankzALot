@@ -22,6 +22,8 @@
 
 @property (nonatomic) dispatch_source_t _timer;
 
+-(id)initwithPlayerID:(int) playerID  andSession:(MCSession * ) session;
+
 - (void) updateWithGameState:(TankzGameState*)gameState;
 
 @end
