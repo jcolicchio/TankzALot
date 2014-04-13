@@ -92,36 +92,45 @@
     UIButton *downButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *fireButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    
     CGSize buttonSize = CGSizeMake(60, 40);
-    [leftButton setFrame:CGRectMake(0, self.view.frame.size.height - buttonSize.height, buttonSize.width, buttonSize.height)];
-    [downButton setFrame:CGRectMake(160-buttonSize.width/2.0f, self.view.frame.size.height - buttonSize.height, buttonSize.width, buttonSize.height)];
-    [rightButton setFrame:CGRectMake(320-buttonSize.width, self.view.frame.size.height - buttonSize.height, buttonSize.width, buttonSize.height)];
-    [upButton setFrame:CGRectMake(160-buttonSize.width/2.0f, self.view.frame.size.height - buttonSize.height*2.0f, buttonSize.width, buttonSize.height)];
+    [leftButton setFrame:CGRectMake(0, self.view.frame.size.height - buttonSize.height*1.5f, buttonSize.width, buttonSize.height)];
+    [downButton setFrame:CGRectMake(buttonSize.width, self.view.frame.size.height - buttonSize.height, buttonSize.width, buttonSize.height)];
+    [rightButton setFrame:CGRectMake(2*buttonSize.width, self.view.frame.size.height - buttonSize.height*1.5f, buttonSize.width, buttonSize.height)];
+    [upButton setFrame:CGRectMake(buttonSize.width, self.view.frame.size.height - buttonSize.height*2.0f, buttonSize.width, buttonSize.height)];
+    
+    [fireButton setFrame:CGRectMake(self.view.frame.size.width - buttonSize.width * 1.5f, self.view.frame.size.height - buttonSize.height * 1.5f, buttonSize.width * 1.5f, buttonSize.height * 1.5f)];
     
     [leftButton addTarget:self action:@selector(pressLeft) forControlEvents:UIControlEventTouchDown];
     [downButton addTarget:self action:@selector(pressDown) forControlEvents:UIControlEventTouchDown];
     [rightButton addTarget:self action:@selector(pressRight) forControlEvents:UIControlEventTouchDown];
     [upButton addTarget:self action:@selector(pressUp) forControlEvents:UIControlEventTouchDown];
+    [fireButton addTarget:self action:@selector(fire) forControlEvents:UIControlEventTouchDown];
     
     [upButton addTarget:self action:@selector(stopAnim) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     [downButton addTarget:self action:@selector(stopAnim) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     [leftButton addTarget:self action:@selector(stopAnim) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     [rightButton addTarget:self action:@selector(stopAnim) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     
-    [leftButton setTitle:@"Left" forState:UIControlStateNormal];
-    [downButton setTitle:@"Down" forState:UIControlStateNormal];
-    [rightButton setTitle:@"Right" forState:UIControlStateNormal];
-    [upButton setTitle:@"Up" forState:UIControlStateNormal];
+    [leftButton setTitle:@"<" forState:UIControlStateNormal];
+    [downButton setTitle:@"V" forState:UIControlStateNormal];
+    [rightButton setTitle:@">" forState:UIControlStateNormal];
+    [upButton setTitle:@"^" forState:UIControlStateNormal];
     
-    [leftButton setBackgroundColor:[UIColor redColor]];
-    [downButton setBackgroundColor:[UIColor redColor]];
-    [rightButton setBackgroundColor:[UIColor redColor]];
-    [upButton setBackgroundColor:[UIColor redColor]];
+    [fireButton setTitle:@"FIRE" forState:UIControlStateNormal];
+    
+    [leftButton setBackgroundColor:[UIColor blackColor]];
+    [downButton setBackgroundColor:[UIColor blackColor]];
+    [rightButton setBackgroundColor:[UIColor blackColor]];
+    [upButton setBackgroundColor:[UIColor blackColor]];
+    [fireButton setBackgroundColor:[UIColor blackColor]];
     
     [self.view addSubview:leftButton];
     [self.view addSubview:downButton];
     [self.view addSubview:rightButton];
     [self.view addSubview:upButton];
+    [self.view addSubview:fireButton];
     
     // I guess here is where we go
     // while (TankzGameServer says it's not my turn)
@@ -236,6 +245,10 @@
         dispatch_source_cancel(self._timer);
         self._timer = NULL;
     }
+}
+
+- (void) fire{
+    [self.gameServer sendPlayerCommand:TankzPlayerCommandFire andPlayerID:self.my_player_id];
 }
 
 - (void) updateWithGameState:(TankzGameState *)gameState
