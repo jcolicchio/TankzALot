@@ -156,19 +156,73 @@
             
             self.gameState.playingState = TankzPlayingStateFiring;
             
-            int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
-            int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
+            //int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
+            //int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
             
-            float timeTraveled = 2*(vertComponent)/self.gameState.gravity;
+            //do actual path simulation
             
-            int distance = timeTraveled*horizComponent;
+            float rad = playerState.turretPosition * M_PI/180;
+            int pow = playerState.power;
+            
+            float velocity_x = pow * cos(rad);
+            NSLog(@"velocity_x_0: %f", velocity_x);
+            float velocity_y = pow * sin(rad);
+            NSLog(@"velocity_y_0: %f", velocity_y);
+            float position_x = playerState.position.x;
+            float position_y = playerState.position.y;
+            
+            NSMutableArray *actions = [[NSMutableArray alloc] init];
+            int i = 0;
+            while( true ){
+                // each iteration represents one time unit
+                float timescale = 0.5;
+                position_x += velocity_x * timescale;
+                position_y += velocity_y * timescale;
+                velocity_y -= self.gameState.gravity * timescale;
+                NSLog(@"%f", velocity_y);
+                
+                //SKAction sequence:
+                //[roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+                
+                if(position_y < self.gameState.height){
+                    break;
+                }
+                
+                //[actions addObject:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+                //the bullet will be at position_x, position_y
+                //for each tank past frame 2, make sure
+                BOOL hit = false;
+                if(i > 2) {
+                    for(TankzPlayer *player in self.gameState.playerList) {
+                        int a = (player.position.x - position_x);
+                        int b = (player.position.y - position_y);
+                        int c = sqrt(a*a+b*b);
+                        
+                        if( c < 15) {
+                            //DIRECT HIT!
+                            hit = true;
+                            player.health -= 50;
+                            NSLog(@"player health is now: %d", player.health);
+                            break;
+                        }
+                    }
+                }
+                
+                if(hit)
+                    break;
+                i++;
+            }
+            
+            //float timeTraveled = 2*(vertComponent)/self.gameState.gravity;
+            
+            //int distance = timeTraveled*horizComponent;
             
             //check if shot direction is left or right
-            CGPoint bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
+            //CGPoint bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
             
             //check if any players are within range of the bullet
             //deal damage to players within range of bullet
-            for(TankzPlayer *player in self.gameState.playerList) {
+            /*for(TankzPlayer *player in self.gameState.playerList) {
                 int a = player.position.x - bombsite.x;
                 int b = player.position.y - bombsite.y;
                 int c = sqrt(a*a+b*b);
@@ -177,7 +231,7 @@
                 if(c < 3){
                     player.health = player.health-50;
                 }
-            }
+            }*/
             
             //move turn to next player who isn't dead
             
