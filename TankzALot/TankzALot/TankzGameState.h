@@ -24,6 +24,7 @@ typedef enum {
 @property (nonatomic) int gravity;
 @property (nonatomic) int height;
 @property (nonatomic) TankzPlayingState playingState;
+@property (nonatomic) int winner;
 
 -(TankzGameState*)copyGameState;
 @end
