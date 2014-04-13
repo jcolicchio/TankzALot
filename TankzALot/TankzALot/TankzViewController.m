@@ -90,6 +90,7 @@ static NSString * const XXServiceType = @"TankzALot";
 {
     [super viewDidLoad];
 
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     
 	// Do any additional setup after loading the view, typically from a nib.

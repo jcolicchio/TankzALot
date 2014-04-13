@@ -30,14 +30,16 @@
 - (void) session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
     //if we receive the game state
     
-    NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    if([state isKindOfClass:[TankzGameState class]]) {
-        NSLog(@"got state from guy!");
-        TankzGameState *newGameState = (TankzGameState *)state;
-        //NSLog(@"it works?");
-        //NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
-        [self setGameState:newGameState];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if([state isKindOfClass:[TankzGameState class]]) {
+            NSLog(@"got state from guy!");
+            TankzGameState *newGameState = (TankzGameState *)state;
+            //NSLog(@"it works?");
+            //NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
+            [self setGameState:newGameState];
+        }
+    });
 }
 
 - (void) session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
