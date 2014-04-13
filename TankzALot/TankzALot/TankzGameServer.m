@@ -78,87 +78,100 @@
 
 -(void)sendPlayerCommand:(TankzPlayerCommand)playerCommand andPlayerID:(int)playerID{
     
-    //validate to make sure it's their turn
-    if(playerID != self.gameState.turn){
-        return;
-    }
-    TankzPlayer *playerState = ((TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID]);
-    
-    //attempt to do the action
-    if (playerCommand == TankzPlayerCommandMoveLeft){
-        int playerFuel = playerState.fuel;
-        if (playerFuel>0){
-            //STUB: update CGPoint position
-            playerState.position = CGPointMake(playerState.position.x-1, playerState.position.y);
-            playerState.fuel = playerFuel-1;
-            
+    @synchronized([TankzGameServer class]) {
+        //validate to make sure it's their turn
+        if(playerID != self.gameState.turn){
+            return;
         }
-        NSLog(@"Move Left");
+        TankzPlayer *playerState = ((TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID]);
         
-    }else if(playerCommand == TankzPlayerCommandMoveRight){
-        
-        int playerFuel = playerState.fuel;
-        if (playerFuel>0){
-            //STUB: update CGPoint position
-            playerState.position = CGPointMake(playerState.position.x+1,playerState.position.y);
-            playerState.fuel = playerFuel-1;
-            
-        }
-        NSLog(@"Move Right");
-        
-    }else if(playerCommand == TankzPlayerCommandAimCCW){
-        if (playerState.turretPosition<180){
-            playerState.turretPosition+=5;
-        }
-        NSLog(@"Aim CCW");
-    }else if(playerCommand == TankzPlayerCommandAimCW){
-        if(playerState.turretPosition>0){
-            playerState.turretPosition-=5;
-        }
-        NSLog(@"Aim CW");
-    }else if(playerCommand == TankzPlayerCommandFire){
-        
-        int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
-        int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
-        
-        float timeTraveled = 2*(vertComponent)/self.gameState.gravity;
-        
-        int distance = timeTraveled*horizComponent;
-        
-        //check if shot direction is left or right
-        CGPoint bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
-        
-        //check if any players are within range of the bullet
-        //deal damage to players within range of bullet
-        for(TankzPlayer *player in self.gameState.playerList) {
-            int a = player.position.x - bombsite.x;
-            int b = player.position.y - bombsite.y;
-            int c = sqrt(a*a+b*b);
-            
-            //TODO:do damage based on distance
-            if(c < 3){
-                player.health = player.health-50;
+        //attempt to do the action
+        if (playerCommand == TankzPlayerCommandMoveLeft){
+            int playerFuel = playerState.fuel;
+            if (playerFuel>0){
+                //STUB: update CGPoint position
+                playerState.position = CGPointMake(playerState.position.x-1, playerState.position.y);
+                playerState.fuel = playerFuel-1;
+                
             }
+            NSLog(@"Move Left");
+            
+        }else if(playerCommand == TankzPlayerCommandMoveRight){
+            
+            int playerFuel = playerState.fuel;
+            if (playerFuel>0){
+                //STUB: update CGPoint position
+                playerState.position = CGPointMake(playerState.position.x+1,playerState.position.y);
+                playerState.fuel = playerFuel-1;
+                
+            }
+            NSLog(@"Move Right");
+            
+        }else if(playerCommand == TankzPlayerCommandAimCCW){
+            if (playerState.turretPosition<180){
+                playerState.turretPosition+=5;
+            }
+            NSLog(@"Aim CCW");
+        }else if(playerCommand == TankzPlayerCommandAimCW){
+            if(playerState.turretPosition>0){
+                playerState.turretPosition-=5;
+            }
+            NSLog(@"Aim CW");
+        }else if(playerCommand == TankzPlayerCommandFire){
+            
+            int vertComponent = [self calculateVerticalComponent:playerState.power andTurretPosition:playerState.turretPosition];
+            int horizComponent = [self calculateHorizontalComponent:playerState.power andTurretPosition:playerState.turretPosition];
+            
+            float timeTraveled = 2*(vertComponent)/self.gameState.gravity;
+            
+            int distance = timeTraveled*horizComponent;
+            
+            //check if shot direction is left or right
+            CGPoint bombsite = CGPointMake(playerState.position.x+distance, playerState.position.y);
+            
+            //check if any players are within range of the bullet
+            //deal damage to players within range of bullet
+            for(TankzPlayer *player in self.gameState.playerList) {
+                int a = player.position.x - bombsite.x;
+                int b = player.position.y - bombsite.y;
+                int c = sqrt(a*a+b*b);
+                
+                //TODO:do damage based on distance
+                if(c < 3){
+                    player.health = player.health-50;
+                }
+            }
+            
+            //move turn to next player who isn't dead
+            
+            int numPlayers = [self.gameState.playerList count];
+            TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID];
+            while (cycledPlayer.health < 0){
+                self.gameState.turn++;
+                if (self.gameState.turn >= numPlayers)
+                    self.gameState.turn=0;
+            }
+            
+            NSLog(@"Shots Fired!");
+            
         }
         
-        //move turn to next player who isn't dead
+        [self.viewController updateWithGameState:[self getGameState]];
         
-        int numPlayers = [self.gameState.playerList count];
-        TankzPlayer *cycledPlayer = (TankzPlayer*)[self.gameState.playerList objectAtIndex:playerID];
-        while (cycledPlayer.health < 0){
-            self.gameState.turn++;
-            if (self.gameState.turn >= numPlayers)
-                self.gameState.turn=0;
+        //send out updated game state here
+        id <NSCoding> gameStateObject = [self getGameState];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:gameStateObject];
+        
+        //data should be transferable and unwrappable
+        NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if([state isKindOfClass:[TankzGameState class]]) {
+            TankzGameState *newGameState = (TankzGameState *)state;
+            NSLog(@"it works?");
+            NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
         }
         
-        NSLog(@"Shots Fired!");
-        
+        //end turn
     }
-    
-    [self.viewController updateWithGameState:[self getGameState]];
-    
-    //send out updated game state here
-    //end turn
 }
 
 /*

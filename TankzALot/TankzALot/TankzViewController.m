@@ -203,14 +203,31 @@ static NSString * const XXServiceType = @"TankzALot";
 }
 
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
-    NSLog(@"WE RECIEVED A MESSAGE");
-    NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    int player_number = [message intValue];
     
-    NSLog(@"THE VALUE OF MESSAGE IS %@", message);
-    //Let the hunger games begin!
-    self.session.delegate = nil;
-    [self launchGame: player_number];
+    //if the message is an id, we set the id
+    //if the message is a game state, we set the game state
+    
+    NSLog(@"WE RECIEVED A MESSAGE");
+    
+    /* example code ----
+    //data should be transferable and unwrappable
+    NSObject *state = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if([state isKindOfClass:[TankzGameState class]]) {
+        TankzGameState *newGameState = (TankzGameState *)state;
+        //NSLog(@"it works?");
+        //NSLog(@"players: %lu, gravity: %d", (unsigned long)[newGameState.playerList count], newGameState.gravity);
+        
+    } else {*/
+        
+        NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        int player_number = [message intValue];
+        
+        NSLog(@"THE VALUE OF MESSAGE IS %@", message);
+        //Let the hunger games begin!
+        self.session.delegate = nil;
+        [self launchGame: player_number];
+        
+    //}
 }
 
 -(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
