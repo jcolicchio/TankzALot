@@ -87,24 +87,7 @@
       
         
         if( tank ){
-            
-            //Update the health bar
-            int healthValue = player.health;
-            int length = (healthValue/100) * 60;
-            SKSpriteNode *healthBar =  (SKSpriteNode*) [tank childNodeWithName:@"healthBar"];
-            NSLog(@"HEALTH VALUE IS %d",healthValue);
-            NSLog(@"HEALTH BAR IS %d",length);
-
-            healthBar.size = CGSizeMake(length, 5);
-            if (healthValue < 50)
-                healthBar.color = [SKColor yellowColor];
-            if (healthValue < 25)
-                healthBar.color = [SKColor redColor];
-            
-            
-            if (player.health <= 0)
-                tank.hidden = YES;
-                
+    
             // move to next point
             [self moveTank:tank to:player.position];
                 
@@ -260,7 +243,23 @@
     }
     
     
-    [roundHEAT runAction:[SKAction sequence:@[[SKAction sequence:actions], [SKAction removeFromParent]]]];
+    [roundHEAT runAction:[SKAction sequence:@[[SKAction sequence:actions], [SKAction removeFromParent]]] completion:^{
+      
+        for(TankzPlayer *player in self.gameState.playerList) {
+            //Update the health bar
+            int healthValue = player.health;
+            int length = (healthValue/100.0) * 60;
+            SKSpriteNode *healthBar =  (SKSpriteNode*) [tank childNodeWithName:@"healthBar"];
+            NSLog(@"HEALTH VALUE IS %d",healthValue);
+            NSLog(@"HEALTH BAR IS %d",length);
+            
+            healthBar.size = CGSizeMake(length, 5);
+            if (healthValue < 50)
+                healthBar.color = [SKColor yellowColor];
+            if (healthValue < 25)
+                healthBar.color = [SKColor redColor];
+        }
+    }];
 }
 
 -(float)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{

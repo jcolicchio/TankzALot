@@ -231,8 +231,7 @@
                 if(c < 3){
                     player.health = player.health-50;
                 }
-               
-            }
+            }*/
             
           
             
