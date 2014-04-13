@@ -83,6 +83,9 @@
         
         if( tank ){
             
+            if (player.health <= 0)
+                tank.hidden = YES;
+                
             // move to next point
             [self moveTank:tank to:player.position];
                 
@@ -90,7 +93,7 @@
             // now set the angle of the player's gun
             [self setGunArc:angle ofTank:tank];
          
-            [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity];
+            [self tankFires:tank fromAngle:player.turretPosition * M_PI/180 withPower:player.power withGravity:GameState.gravity stopsAt:GameState.height];
         }
     }
 }
@@ -165,9 +168,11 @@
     [self addChild:ground];
 }
 
-- (void) tankFires:(SKSpriteNode*)tank fromAngle:(float)rad withPower:(int)pow withGravity:(int)g
+- (void) tankFires:(SKSpriteNode*)tank fromAngle:(float)rad withPower:(int)pow withGravity:(int)g stopsAt:(int)terrain
 {
     SKSpriteNode *roundHEAT = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(3,3)];
+    
+    SKSpriteNode *hull = (SKSpriteNode*) [tank childNodeWithName:@"turret"];
     
     SKSpriteNode *gun = (SKSpriteNode*) [[tank childNodeWithName:@"turret"] childNodeWithName:@"gun"];
     
@@ -175,64 +180,44 @@
     
     //roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
     
-    roundHEAT.position = CGPointMake(gun.position.x, gun.position.y);
+    roundHEAT.position = CGPointMake(tank.position.x, tank.position.y);
     
-    //[gun addChild:roundHEAT];
-    
-    CGMutablePathRef projectilePath = CGPathCreateMutable();
+    //CGMutablePathRef projectilePath = CGPathCreateMutable();
 
-    CGPoint start = CGPointMake(roundHEAT.position.x + gun.size.width/2,roundHEAT.position.y);
+    //CGPoint start = CGPointMake(roundHEAT.position.x + gun.size.width/2,roundHEAT.position.y);
     
-    CGPathMoveToPoint(projectilePath, nil, start.x, start.y);
+    //CGPathMoveToPoint(projectilePath, nil, start.x, start.y);
     
     float velocity_x = pow * cos(rad);
-    
+    NSLog(@"velocity_x_0: %f", velocity_x);
     float velocity_y = pow * sin(rad);
-    
-    float position_x = 0;
-    float position_y = 0;
+    NSLog(@"velocity_y_0: %f", velocity_y);
+    float position_x = roundHEAT.position.x;
+    float position_y = roundHEAT.position.y;
     
     while( true ){
         // each iteration represents one time unit
         float timescale = 0.1;
         position_x += velocity_x * timescale;
         position_y += velocity_y * timescale;
-        velocity_y -= g * timescale;
+        velocity_y -= g/3 * timescale;
+        NSLog(@"%f", velocity_y);
         
-        [roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1]];
+        [roundHEAT runAction:[SKAction moveTo:CGPointMake(position_x, position_y) duration:0.1
+                              ]];
         
-        if(position_y < 0){
+        if(position_y < terrain){
             break;
         }
         
-    }/*
-    
-    int vertComponent = [self calculateVerticalComponent:pow andTurretPosition:rad];
-    int horizComponent = [self calculateHorizontalComponent:pow andTurretPosition:rad];
-    
-    float timeTraveled = 2*(vertComponent)/g;
-    
-    int distance = timeTraveled*horizComponent;
-    
-    CGPoint finish = CGPointMake(start.x + distance, start.y);
-    
-    // temp!
-    //CGPathAddCurveToPoint(projectilePath, 0, timeTraveled/3 * horizComponent, (2*vertComponent) / (3*g), 2 * timeTraveled/3, (4*vertComponent) / (3*g), finish.x, finish.y);
-    CGPathAddCurveToPoint(projectilePath, 0, 30, 60, 60, 60, finish.x, finish.y);
-    
-    SKAction * projectileMotion = [SKAction followPath:projectilePath duration:1.0];
-
-    
-    [roundHEAT runAction:projectileMotion];
-      */
-    
+    }
     
 }
 
--(int)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
+-(float)calculateHorizontalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
     return powerComponent * cos(turretPosition);
 }
--(int)calculateVerticalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
+-(float)calculateVerticalComponent:(int)powerComponent andTurretPosition:(int)turretPosition{
     return powerComponent * sin(turretPosition);
 }
 
