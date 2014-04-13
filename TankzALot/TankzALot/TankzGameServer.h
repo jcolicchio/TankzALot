@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
+
 #import "TankzGameState.h"
 #import "TankzPlayer.h"
 
@@ -29,7 +31,7 @@ typedef enum{
 @property (nonatomic) int height;
 
 //init modified with ViewController
--(id)initWithViewController:(TankzClientViewController*)vc;
+-(id)initWithViewController:(TankzClientViewController*)vc andSession:(MCSession *) session;
 
 //used by client to obtain current game state
 -(TankzGameState*)getGameState;
